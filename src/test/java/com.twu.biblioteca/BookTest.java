@@ -50,7 +50,7 @@ class BookTest {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942));
-        String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942";
+        String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\n";
 
         book.printInformation();
 

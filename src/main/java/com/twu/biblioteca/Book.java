@@ -26,6 +26,6 @@ public class Book {
     }
 
     public void printInformation() {
-        System.out.print("Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942");
+        System.out.print("Title: " + title + " Author: " + author + " Year Of Publish: " + yearPublished + "\n");
     }
 }

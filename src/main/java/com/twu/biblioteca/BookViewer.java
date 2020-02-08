@@ -6,7 +6,7 @@ public class BookViewer {
     public void printBookDetails(ArrayList<Book> books) {
         for (Book book :
                 books) {
-            book.printTitle();
+            book.printInformation();
         }
     }
 }
