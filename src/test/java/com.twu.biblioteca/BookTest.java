@@ -21,18 +21,5 @@ class BookTest {
         assertEquals(expected, byteArrayOutputStream.toString());
     }
 
-    @Test
-    void shouldReturnTitleOfMultipleBooks() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
-        Book famousFive = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942));
-        Book harryPotter = new Book("Harry Potter", "J.K Rowling", Year.of(1997));
-        String expected = "Famous Five\nHarry Potter\n";
-
-        famousFive.printTitle();
-        harryPotter.printTitle();
-
-        assertEquals(expected, byteArrayOutputStream.toString());
-    }
 
 }
