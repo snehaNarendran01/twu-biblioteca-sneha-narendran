@@ -39,7 +39,6 @@ class MenuTest {
         String expectedErrorMessage = "Please select a valid option!";
 
         menu.showMenu(8);
-        menu.displayInvalidOptionMessage();
 
         assertEquals(expectedErrorMessage, byteArrayOutputStream.toString());
     }

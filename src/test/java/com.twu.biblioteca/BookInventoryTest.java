@@ -32,8 +32,9 @@ class BookInventoryTest {
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInInventory() {
         Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
+        BookInventory bookInventory = new BookInventory(new ArrayList<>());
         try {
+            bookInventory.addBook(book);
             bookInventory.removeBook(book);
         } catch (Exception e) {
             fail();
@@ -44,7 +45,15 @@ class BookInventoryTest {
     void shouldNotAbleToCheckoutBookIfItDoesNotExistInInventory() {
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory(new ArrayList<>());
+
         assertThrows(BookNotFoundException.class, () -> bookInventory.removeBook(book));
     }
 
+    @Test
+    void shouldNotBeAbleToRemoveABookTwice() throws BookNotFoundException {
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
+        bookInventory.removeBook(book);
+        assertThrows(BookNotFoundException.class, () -> bookInventory.removeBook(book));
+    }
 }

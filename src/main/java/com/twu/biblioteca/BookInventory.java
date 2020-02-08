@@ -12,7 +12,7 @@ public class BookInventory {
     public void removeBook(Book book) throws BookNotFoundException {
         if (!inventory.contains(book))
             throw new BookNotFoundException();
-
+        inventory.remove(book);
     }
 
     public void addBook(Book book) throws BookAlreadyExistException {
