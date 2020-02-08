@@ -2,7 +2,14 @@ package com.twu.biblioteca;
 
 public class Menu {
 
-    public void showMenu(BookViewer bookViewer) {
+    private BookViewer bookViewer;
+
+    public Menu(BookViewer bookViewer) {
+
+        this.bookViewer = bookViewer;
+    }
+
+    public void showMenu() {
         bookViewer.printBookDetails();
     }
 }

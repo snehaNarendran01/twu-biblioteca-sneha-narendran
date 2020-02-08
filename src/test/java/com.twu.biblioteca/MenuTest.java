@@ -7,11 +7,11 @@ import static org.mockito.Mockito.*;
 class MenuTest {
     @Test
     void shouldBeAbleToViewTheListOfBooksFromTheMenu() {
-        Menu menu = new Menu();
         BookViewer bookViewer = mock(BookViewer.class);
+        Menu menu = new Menu(bookViewer);
 
-        menu.showMenu(bookViewer);
+        menu.showMenu();
 
-        verify(bookViewer,times(1)).printBookDetails();
+        verify(bookViewer, times(1)).printBookDetails();
     }
 }
