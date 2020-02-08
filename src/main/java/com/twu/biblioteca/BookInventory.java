@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.exception.BookAlreadyExistException;
+import com.twu.biblioteca.exception.BookNotFoundException;
+
 import java.util.ArrayList;
 
 public class BookInventory {

@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.exception.BookAlreadyExistException;
+import com.twu.biblioteca.exception.BookNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
