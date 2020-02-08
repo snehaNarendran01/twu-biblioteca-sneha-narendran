@@ -2,6 +2,10 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class MenuTest {
@@ -23,5 +27,19 @@ class MenuTest {
         menu.showMenu(2);
 
         verify(bookViewer, times(0)).printBookDetails();
+    }
+
+    @Test
+    void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        BookViewer bookViewer = mock(BookViewer.class);
+        Menu menu = new Menu(bookViewer);
+        String expectedErrorMessage = "Please select a valid option!";
+
+        menu.showMenu(8);
+        menu.displayInvalidOptionMessage();
+
+        assertEquals(expectedErrorMessage, byteArrayOutputStream.toString());
     }
 }

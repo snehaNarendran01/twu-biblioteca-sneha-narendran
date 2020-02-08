@@ -10,7 +10,11 @@ public class Menu {
     }
 
     public void showMenu(int option) {
-        if(option==1)
-        bookViewer.printBookDetails();
+        if (option == 1)
+            bookViewer.printBookDetails();
+    }
+
+    public void displayInvalidOptionMessage() {
+        System.out.print("Please select a valid option!");
     }
 }
