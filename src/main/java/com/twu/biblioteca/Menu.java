@@ -9,7 +9,8 @@ public class Menu {
         this.bookViewer = bookViewer;
     }
 
-    public void showMenu() {
+    public void showMenu(int option) {
+        if(option==1)
         bookViewer.printBookDetails();
     }
 }
