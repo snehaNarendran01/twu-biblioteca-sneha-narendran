@@ -16,6 +16,7 @@ public class BookInventory {
         if (!inventory.contains(book))
             throw new BookNotFoundException();
         inventory.remove(book);
+        System.out.print("Thank you! Enjoy the book");
     }
 
     public void addBook(Book book) throws BookAlreadyExistException {

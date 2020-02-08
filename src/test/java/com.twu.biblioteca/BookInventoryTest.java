@@ -4,11 +4,12 @@ import com.twu.biblioteca.exception.BookAlreadyExistException;
 import com.twu.biblioteca.exception.BookNotFoundException;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class BookInventoryTest {
@@ -55,7 +56,23 @@ class BookInventoryTest {
     void shouldNotBeAbleToRemoveABookTwice() throws BookNotFoundException {
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
+
         bookInventory.removeBook(book);
+
         assertThrows(BookNotFoundException.class, () -> bookInventory.removeBook(book));
+    }
+
+    @Test
+    void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() throws BookNotFoundException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
+        String expectedSuccessMessage = "Thank you! Enjoy the book";
+
+        bookInventory.removeBook(book);
+
+        assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
+
     }
 }
