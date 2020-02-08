@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exception.BookNotFoundException;
+import com.twu.biblioteca.exception.BookAlreadyExistException;
 
 public class Menu {
 
@@ -12,11 +12,14 @@ public class Menu {
         this.bookInventory = bookInventory;
     }
 
-    public void showMenu(int option, Book book) throws BookNotFoundException {
+    public void showMenu(int option, Book book) throws BookAlreadyExistException {
         if (option == 1)
             bookViewer.printBookDetails();
         if (option == 2) {
             bookInventory.removeBook(book);
+        }
+        if (option == 3) {
+            bookInventory.addBook(book);
         } else
             displayInvalidOptionMessage();
     }

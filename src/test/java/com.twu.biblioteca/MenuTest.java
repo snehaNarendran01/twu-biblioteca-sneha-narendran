@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exception.BookNotFoundException;
+import com.twu.biblioteca.exception.BookAlreadyExistException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 class MenuTest {
 
     @Test
-    void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() throws BookNotFoundException {
+    void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() throws BookAlreadyExistException {
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null);
 
@@ -22,17 +22,17 @@ class MenuTest {
     }
 
     @Test
-    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuIfChosenOptionIsNotOne() throws BookNotFoundException {
+    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuIfChosenOptionIsNotOne() throws BookAlreadyExistException {
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null);
 
-        menu.showMenu(3, mock(Book.class));
+        menu.showMenu(8, mock(Book.class));
 
         verify(bookViewer, times(0)).printBookDetails();
     }
 
     @Test
-    void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() throws BookNotFoundException {
+    void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() throws BookAlreadyExistException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         BookViewer bookViewer = mock(BookViewer.class);
@@ -45,7 +45,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToCheckoutABookIfChosenOptionTwo() throws BookNotFoundException {
+    void shouldBeAbleToCheckoutABookIfChosenOptionTwo() throws BookAlreadyExistException {
         BookViewer bookViewer = mock(BookViewer.class);
         BookInventory bookInventory = mock(BookInventory.class);
         Menu menu = new Menu(bookViewer, bookInventory);
@@ -54,5 +54,17 @@ class MenuTest {
         menu.showMenu(2, book);
 
         verify(bookInventory, times(1)).removeBook(book);
+    }
+
+    @Test
+    void shouldBeAbleToReturnBookIfChosenOptionIsThree() throws BookAlreadyExistException {
+        BookViewer bookViewer = mock(BookViewer.class);
+        BookInventory bookInventory = mock(BookInventory.class);
+        Menu menu = new Menu(bookViewer, bookInventory);
+
+        Book book = mock(Book.class);
+        menu.showMenu(3, book);
+
+        verify(bookInventory, times(1)).addBook(book);
     }
 }
