@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 import java.time.Year;
 
 public class Book {
-    String title;
+    private String title;
     private String author;
     private Year yearPublished;
 
@@ -14,6 +14,10 @@ public class Book {
     }
 
     public void printTitle() {
-        System.out.println(title);
+        System.out.print("Title: " + title);
+    }
+
+    public void printAuthorName() {
+        System.out.print("Author: " + author);
     }
 }
