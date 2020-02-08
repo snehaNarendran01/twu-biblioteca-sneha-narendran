@@ -13,18 +13,6 @@ public class Book {
         this.yearPublished = yearPublished;
     }
 
-    public void printTitle() {
-        System.out.print("Title: " + title);
-    }
-
-    public void printAuthorName() {
-        System.out.print("Author: " + author);
-    }
-
-    public void printYearOfPublish() {
-        System.out.print("Year Of Publish: " + yearPublished);
-    }
-
     public void printInformation() {
         System.out.print("Title: " + title + " Author: " + author + " Year Of Publish: " + yearPublished + "\n");
     }

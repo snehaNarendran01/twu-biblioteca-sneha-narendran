@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class MenuTest {
+
     @Test
     void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() {
         BookViewer bookViewer = mock(BookViewer.class);
