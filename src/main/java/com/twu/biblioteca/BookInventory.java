@@ -24,6 +24,7 @@ public class BookInventory {
         if (inventory.contains(book))
             throw new BookAlreadyExistException();
         inventory.add(book);
+        System.out.print("Thank you for returning the book");
 
     }
 }

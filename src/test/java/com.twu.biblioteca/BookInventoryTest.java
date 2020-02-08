@@ -69,4 +69,17 @@ class BookInventoryTest {
 
         assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
     }
+
+    @Test
+    void shouldBeAbleToGetASuccessMessageIfTheBookWasReturnedSuccessfully() throws BookAlreadyExistException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory(new ArrayList<>());
+        String expectedSuccessMessage = "Thank you for returning the book";
+
+        bookInventory.addBook(book);
+
+        assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
+    }
 }
