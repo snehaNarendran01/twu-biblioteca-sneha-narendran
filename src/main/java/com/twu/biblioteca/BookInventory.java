@@ -9,9 +9,16 @@ public class BookInventory {
         this.inventory = inventory;
     }
 
-    public void remove(Book book) throws BookNotFoundException {
+    public void removeBook(Book book) throws BookNotFoundException {
         if (!inventory.contains(book))
             throw new BookNotFoundException();
+
+    }
+
+    public void addBook(Book book) throws BookAlreadyExistException {
+        if (inventory.contains(book))
+            throw new BookAlreadyExistException();
+        inventory.add(book);
 
     }
 }

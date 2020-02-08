@@ -11,11 +11,30 @@ import static org.mockito.Mockito.mock;
 
 class BookInventoryTest {
     @Test
+    void shouldBeAbleToAddBookInInventory() {
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory(new ArrayList<>());
+        try {
+            bookInventory.addBook(book);
+        } catch (Exception e) {
+            fail("Not able to add a book");
+        }
+    }
+
+    @Test
+    void shouldNotBeAbleToAddBookTwice() {
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
+
+        assertThrows(BookAlreadyExistException.class, () -> bookInventory.addBook(book));
+    }
+
+    @Test
     void shouldBeAbleToCheckoutBookIfItExistInInventory() {
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
         try {
-            bookInventory.remove(book);
+            bookInventory.removeBook(book);
         } catch (Exception e) {
             fail();
         }
@@ -25,6 +44,7 @@ class BookInventoryTest {
     void shouldNotAbleToCheckoutBookIfItDoesNotExistInInventory() {
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory(new ArrayList<>());
-        assertThrows(BookNotFoundException.class, () -> bookInventory.remove(book));
+        assertThrows(BookNotFoundException.class, () -> bookInventory.removeBook(book));
     }
+
 }
