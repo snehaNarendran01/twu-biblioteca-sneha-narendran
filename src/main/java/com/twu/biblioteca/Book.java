@@ -4,12 +4,16 @@ import java.time.Year;
 
 public class Book {
     String title;
+    private String author;
+    private Year yearPublished;
 
     public Book(String title, String author, Year yearPublished) {
         this.title = title;
+        this.author = author;
+        this.yearPublished = yearPublished;
     }
 
     public void printTitle() {
-        System.out.print(title);
+        System.out.println(title);
     }
 }
