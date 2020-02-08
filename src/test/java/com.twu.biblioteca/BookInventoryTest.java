@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exception.BookAlreadyExistException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -8,7 +7,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 
 class BookInventoryTest {
@@ -21,14 +21,6 @@ class BookInventoryTest {
         } catch (Exception e) {
             fail("Not able to add a book");
         }
-    }
-
-    @Test
-    void shouldNotBeAbleToAddBookTwice() {
-        Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
-
-        assertThrows(BookAlreadyExistException.class, () -> bookInventory.addBook(book));
     }
 
     @Test
@@ -49,12 +41,11 @@ class BookInventoryTest {
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory(new ArrayList<>());
-        String expectedUnSuccessfullMessage = "Sorry, that book is not available";
+        String expectedUnSuccessfulMessage = "Sorry, that book is not available";
 
         bookInventory.removeBook(book);
 
-        assertEquals(expectedUnSuccessfullMessage, byteArrayOutputStream.toString());
-
+        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
 
     @Test
@@ -71,7 +62,7 @@ class BookInventoryTest {
     }
 
     @Test
-    void shouldBeAbleToGetASuccessMessageIfTheBookWasReturnedSuccessfully() throws BookAlreadyExistException {
+    void shouldBeAbleToGetASuccessMessageIfTheBookWasReturnedSuccessfully() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = mock(Book.class);
@@ -81,5 +72,18 @@ class BookInventoryTest {
         bookInventory.addBook(book);
 
         assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
+    }
+
+    @Test
+    void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeAdded() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singleton(book)));
+        String expectedUnSuccessfulMessage = "That is not a valid book to return.";
+
+        bookInventory.addBook(book);
+
+        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
 }

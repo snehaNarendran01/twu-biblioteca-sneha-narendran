@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exception.BookAlreadyExistException;
-
 import java.util.ArrayList;
 
 public class BookInventory {
@@ -20,9 +18,11 @@ public class BookInventory {
         System.out.print("Thank you! Enjoy the book");
     }
 
-    public void addBook(Book book) throws BookAlreadyExistException {
-        if (inventory.contains(book))
-            throw new BookAlreadyExistException();
+    public void addBook(Book book) {
+        if (inventory.contains(book)) {
+            System.out.print("That is not a valid book to return.");
+            return;
+        }
         inventory.add(book);
         System.out.print("Thank you for returning the book");
 
