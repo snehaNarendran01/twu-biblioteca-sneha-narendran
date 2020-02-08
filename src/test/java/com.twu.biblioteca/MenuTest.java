@@ -52,4 +52,5 @@ class MenuTest {
         menu.showMenu(1);
         menu.displayInvalidOptionMessage();
     }
+
 }
