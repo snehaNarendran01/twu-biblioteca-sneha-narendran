@@ -43,4 +43,13 @@ class MenuTest {
 
         assertEquals(expectedErrorMessage, byteArrayOutputStream.toString());
     }
+
+    @Test
+    void shouldNotShowInvalidOptionMessageIfChosenOptionIsCorrect() {
+        BookViewer bookViewer = mock(BookViewer.class);
+        Menu menu = new Menu(bookViewer);
+
+        menu.showMenu(1);
+        menu.displayInvalidOptionMessage();
+    }
 }

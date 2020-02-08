@@ -12,6 +12,8 @@ public class Menu {
     public void showMenu(int option) {
         if (option == 1)
             bookViewer.printBookDetails();
+        else
+            displayInvalidOptionMessage();
     }
 
     public void displayInvalidOptionMessage() {
