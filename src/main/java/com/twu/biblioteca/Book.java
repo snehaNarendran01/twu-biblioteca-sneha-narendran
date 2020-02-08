@@ -20,4 +20,8 @@ public class Book {
     public void printAuthorName() {
         System.out.print("Author: " + author);
     }
+
+    public void printYearOfPublish() {
+        System.out.print("Year Of Publish: " + yearPublished);
+    }
 }

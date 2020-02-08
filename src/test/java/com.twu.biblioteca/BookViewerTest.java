@@ -18,7 +18,7 @@ class BookViewerTest {
         Book famousFive = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942));
         Book harryPotter = new Book("Harry Potter", "J.K Rowling", Year.of(1997));
         ArrayList<Book> books = new ArrayList<>(Arrays.asList(famousFive, harryPotter));
-        String expected = "Famous Five\nHarry Potter\n";
+        String expected = "Title: Famous FiveTitle: Harry Potter";
         BookViewer bookViewer = new BookViewer();
 
         bookViewer.printBookDetails(books);

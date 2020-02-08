@@ -7,7 +7,6 @@ public class BookViewer {
         for (Book book :
                 books) {
             book.printTitle();
-
         }
     }
 }
