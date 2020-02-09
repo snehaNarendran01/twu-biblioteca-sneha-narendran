@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -15,9 +13,9 @@ class BookInventoryTest {
     @Test
     void shouldBeAbleToAddBookInInventory() {
         Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>());
+        BookInventory bookInventory = new BookInventory();
         try {
-            bookInventory.addBook(book);
+            bookInventory.add(book);
         } catch (Exception e) {
             fail("Not able to add a book");
         }
@@ -26,10 +24,10 @@ class BookInventoryTest {
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInInventory() {
         Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>());
+        BookInventory bookInventory = new BookInventory();
         try {
-            bookInventory.addBook(book);
-            bookInventory.removeBook(book);
+            bookInventory.add(book);
+            bookInventory.remove(book);
         } catch (Exception e) {
             fail();
         }
@@ -40,10 +38,10 @@ class BookInventoryTest {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>());
+        BookInventory bookInventory = new BookInventory();
         String expectedUnSuccessfulMessage = "Sorry, that book is not available";
 
-        bookInventory.removeBook(book);
+        bookInventory.remove(book);
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
@@ -53,23 +51,11 @@ class BookInventoryTest {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singletonList(book)));
+        BookInventory bookInventory = new BookInventory();
         String expectedSuccessMessage = "Thank you! Enjoy the book";
 
-        bookInventory.removeBook(book);
-
-        assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
-    }
-
-    @Test
-    void shouldBeAbleToGetASuccessMessageIfTheBookWasReturnedSuccessfully() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
-        Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>());
-        String expectedSuccessMessage = "Thank you for returning the book";
-
-        bookInventory.addBook(book);
+        bookInventory.add(book);
+        bookInventory.remove(book);
 
         assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
     }
@@ -79,10 +65,10 @@ class BookInventoryTest {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = mock(Book.class);
-        BookInventory bookInventory = new BookInventory(new ArrayList<>(Collections.singleton(book)));
+        BookInventory bookInventory = new BookInventory();
         String expectedUnSuccessfulMessage = "That is not a valid book to return.";
 
-        bookInventory.addBook(book);
+        bookInventory.returnBook(book);
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
