@@ -15,18 +15,21 @@ public class Menu {
                 bookViewer.printBookDetails();
                 break;
             case 2:
-                String bookToBeCheckout = "";
+//                String bookToBeCheckout = scanner.next();
+                String bookToBeCheckout = "Harry Potter";
                 bookList.checkout(bookToBeCheckout);
                 break;
             case 3:
-                String bookToBeReturned = "";
+//                String bookToBeReturned = scanner.next();
+                String bookToBeReturned = "Harry Potter";
                 bookList.returnBook(bookToBeReturned);
                 break;
             case 4:
-                return;
+//                    System.exit(0);
             default:
                 displayInvalidOptionMessage();
         }
+
     }
 
     private void displayInvalidOptionMessage() {
