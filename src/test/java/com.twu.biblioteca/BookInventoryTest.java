@@ -72,4 +72,18 @@ class BookInventoryTest {
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
+
+    @Test
+    void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory();
+        String expectedUnSuccessfulMessage = "Thank you for returning the book";
+        bookInventory.add(book);
+
+        bookInventory.returnBook(book);
+
+        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+    }
 }

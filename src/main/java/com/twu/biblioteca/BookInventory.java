@@ -22,14 +22,15 @@ public class BookInventory {
     }
 
     public void add(Book book) {
-        if (inventory.contains(book)) {
-            return;
-        }
         inventory.add(book);
     }
 
     public void returnBook(Book book) {
-        System.out.print("That is not a valid book to return.");
+        if (inventory.contains(book)) {
+            System.out.print("Thank you for returning the book");
+        } else {
+            System.out.print("That is not a valid book to return.");
+        }
 
     }
 }
