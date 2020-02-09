@@ -64,6 +64,18 @@ class MenuTest {
         Book book = mock(Book.class);
         menu.showMenu(3, book);
 
-        verify(bookInventory, times(1)).add(book);
+        verify(bookInventory, times(1)).returnBook(book);
+    }
+
+    @Test
+    void shouldDisplayTheMenuBeforeUserInputIsTaken() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        Menu menu = new Menu(null, null);
+        String expectedString = "Select any one of the options: \n1: Listing all books\n2: Checkout a specified book\n3: Return a book\n4: Quit the application";
+
+        menu.displayMenu();
+
+        assertEquals(expectedString, byteArrayOutputStream.toString());
     }
 }
