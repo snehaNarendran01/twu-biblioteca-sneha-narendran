@@ -15,7 +15,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null);
 
-        menu.showMenu(1, mock(Book.class).getTitle());
+        menu.showMenu(1);
 
         verify(bookViewer, times(1)).printBookDetails();
     }
@@ -25,7 +25,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null);
 
-        menu.showMenu(8, mock(Book.class).getTitle());
+        menu.showMenu(8);
 
         verify(bookViewer, times(0)).printBookDetails();
     }
@@ -38,7 +38,7 @@ class MenuTest {
         Menu menu = new Menu(bookViewer, null);
         String expectedErrorMessage = "Please select a valid option!";
 
-        menu.showMenu(8, mock(Book.class).getTitle());
+        menu.showMenu(8);
 
         assertEquals(expectedErrorMessage, byteArrayOutputStream.toString());
     }
@@ -49,10 +49,9 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         Menu menu = new Menu(bookViewer, bookList);
 
-        Book book = mock(Book.class);
-        menu.showMenu(2, book.getTitle());
+        menu.showMenu(2);
 
-        verify(bookList, times(1)).checkout(book.getTitle());
+        verify(bookList, times(1)).checkout("");
     }
 
     @Test
@@ -61,10 +60,9 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         Menu menu = new Menu(bookViewer, bookList);
 
-        Book book = mock(Book.class);
-        menu.showMenu(3, book.getTitle());
+        menu.showMenu(3);
 
-        verify(bookList, times(1)).returnBook(book.getTitle());
+        verify(bookList, times(1)).returnBook("");
     }
 
     @Test

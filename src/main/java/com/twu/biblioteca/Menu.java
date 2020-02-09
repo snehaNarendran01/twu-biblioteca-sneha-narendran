@@ -1,24 +1,30 @@
 package com.twu.biblioteca;
 
 public class Menu {
-
     private BookViewer bookViewer;
-    private BookList bookInventory;
+    private BookList bookList;
 
     public Menu(BookViewer bookViewer, BookList bookInventory) {
         this.bookViewer = bookViewer;
-        this.bookInventory = bookInventory;
+        this.bookList = bookInventory;
     }
 
-    public void showMenu(int option, String book) {
-        if (option == 1)
-            bookViewer.printBookDetails();
-        if (option == 2)
-            bookInventory.checkout(book);
-        if (option == 3) {
-            bookInventory.returnBook(book);
-        } else
-            displayInvalidOptionMessage();
+    public void showMenu(int option) {
+        switch (option) {
+            case 1:
+                bookViewer.printBookDetails();
+                break;
+            case 2:
+                String bookToBeCheckout = "";
+                bookList.checkout(bookToBeCheckout);
+                break;
+            case 3:
+                String bookToBeReturned = "";
+                bookList.returnBook(bookToBeReturned);
+                break;
+            default:
+                displayInvalidOptionMessage();
+        }
     }
 
     private void displayInvalidOptionMessage() {
@@ -26,6 +32,8 @@ public class Menu {
     }
 
     public void displayMenu() {
-        System.out.print("Select any one of the options: \n1: Listing all books\n2: Checkout a specified book\n3: Return a book\n4: Quit the application");
+        System.out.print("\nSelect any one of the options: \n1: Listing all books\n2: Checkout a specified book\n3: Return a book\n4: Quit the application");
+        int option = 0;
+        showMenu(option);
     }
 }
