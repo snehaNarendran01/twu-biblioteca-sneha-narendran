@@ -11,13 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BookTest {
     @Test
     void shouldReturnTheBookDetails() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
+        ByteArrayOutputStream byteArrayOutputStream = initialize();
         Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942));
         String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\n";
 
         book.printInformation();
 
         assertEquals(expected, byteArrayOutputStream.toString());
+    }
+
+    private ByteArrayOutputStream initialize() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        return byteArrayOutputStream;
     }
 }

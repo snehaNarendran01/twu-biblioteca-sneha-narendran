@@ -38,8 +38,7 @@ class BookInventoryTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInInventory() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
+        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory();
         String expectedUnSuccessfulMessage = "Sorry, that book is not available";
@@ -51,8 +50,7 @@ class BookInventoryTest {
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
+        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory();
         String expectedSuccessMessage = "Thank you! Enjoy the book";
@@ -65,8 +63,7 @@ class BookInventoryTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
+        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory();
         String expectedUnSuccessfulMessage = "That is not a valid book to return.";
@@ -76,10 +73,15 @@ class BookInventoryTest {
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
 
-    @Test
-    void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
+    private ByteArrayOutputStream initializeOutputStream() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
+        return byteArrayOutputStream;
+    }
+
+    @Test
+    void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
+        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
         Book book = mock(Book.class);
         BookInventory bookInventory = new BookInventory();
         String expectedUnSuccessfulMessage = "Thank you for returning the book";
