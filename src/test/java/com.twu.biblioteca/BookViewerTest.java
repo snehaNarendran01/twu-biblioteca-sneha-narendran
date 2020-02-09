@@ -6,17 +6,21 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class BookViewerTest {
     @Test
     void shouldDisplayTheDetailsOfMultipleBooks() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
-        String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\nTitle: Harry Potter Author: J.K Rowling Year Of Publish: 1997\n";
-        BookViewer bookViewer = new BookViewer();
+        BookInventory bookInventory = mock(BookInventory.class);
+        when(bookInventory.getBooks()).thenReturn(new ArrayList<>(Collections.singletonList(new Book("Famous Five", "Enid Mary Blyton", Year.of(1942)))));
+        String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\n";
+        BookViewer bookViewer = new BookViewer(bookInventory);
 
         bookViewer.printBookDetails();
 

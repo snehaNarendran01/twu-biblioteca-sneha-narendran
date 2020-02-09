@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import java.time.Year;
 import java.util.ArrayList;
 
 public class BookInventory {
@@ -8,8 +7,7 @@ public class BookInventory {
 
     public BookInventory() {
         this.inventory = new ArrayList<>();
-        inventory.add(new Book("Famous Five", "Enid Mary Blyton", Year.of(1942)));
-        inventory.add(new Book("Harry Potter", "J.K Rowling", Year.of(1997)));
+        //can add books here
     }
 
     public void remove(Book book) {
@@ -27,10 +25,15 @@ public class BookInventory {
 
     public void returnBook(Book book) {
         if (inventory.contains(book)) {
+            add(book);
             System.out.print("Thank you for returning the book");
         } else {
             System.out.print("That is not a valid book to return.");
         }
 
+    }
+
+    public ArrayList<Book> getBooks() {
+        return inventory;
     }
 }

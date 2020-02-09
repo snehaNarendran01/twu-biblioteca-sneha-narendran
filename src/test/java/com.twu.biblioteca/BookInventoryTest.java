@@ -1,9 +1,12 @@
 package com.twu.biblioteca;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -61,7 +64,7 @@ class BookInventoryTest {
     }
 
     @Test
-    void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeAdded() {
+    void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Book book = mock(Book.class);
@@ -85,5 +88,19 @@ class BookInventoryTest {
         bookInventory.returnBook(book);
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+    }
+
+    @Test
+    void shouldReturnTheBookInformation() {
+        Book book = mock(Book.class);
+        BookInventory bookInventory = new BookInventory();
+        ArrayList<Book> expectedInventory = new ArrayList<>(Collections.singletonList(book));
+        bookInventory.add(book);
+
+        ArrayList<Book> books = bookInventory.getBooks();
+
+        Assertions.assertEquals(expectedInventory, books);
+
+
     }
 }
