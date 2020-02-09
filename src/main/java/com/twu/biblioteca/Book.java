@@ -3,6 +3,11 @@ package com.twu.biblioteca;
 import java.time.Year;
 
 public class Book {
+
+    public String getTitle() {
+        return title;
+    }
+
     private String title;
     private String author;
     private Year yearPublished;

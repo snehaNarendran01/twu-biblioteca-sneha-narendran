@@ -15,7 +15,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null);
 
-        menu.showMenu(1, mock(Book.class));
+        menu.showMenu(1, mock(Book.class).getTitle());
 
         verify(bookViewer, times(1)).printBookDetails();
     }
@@ -25,7 +25,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null);
 
-        menu.showMenu(8, mock(Book.class));
+        menu.showMenu(8, mock(Book.class).getTitle());
 
         verify(bookViewer, times(0)).printBookDetails();
     }
@@ -38,7 +38,7 @@ class MenuTest {
         Menu menu = new Menu(bookViewer, null);
         String expectedErrorMessage = "Please select a valid option!";
 
-        menu.showMenu(8, mock(Book.class));
+        menu.showMenu(8, mock(Book.class).getTitle());
 
         assertEquals(expectedErrorMessage, byteArrayOutputStream.toString());
     }
@@ -46,25 +46,25 @@ class MenuTest {
     @Test
     void shouldBeAbleToCheckoutABookIfChosenOptionTwo() {
         BookViewer bookViewer = mock(BookViewer.class);
-        BookInventory bookInventory = mock(BookInventory.class);
-        Menu menu = new Menu(bookViewer, bookInventory);
+        BookList bookList = mock(BookList.class);
+        Menu menu = new Menu(bookViewer, bookList);
 
         Book book = mock(Book.class);
-        menu.showMenu(2, book);
+        menu.showMenu(2, book.getTitle());
 
-        verify(bookInventory, times(1)).remove(book);
+        verify(bookList, times(1)).checkout(book.getTitle());
     }
 
     @Test
     void shouldBeAbleToReturnBookIfChosenOptionIsThree() {
         BookViewer bookViewer = mock(BookViewer.class);
-        BookInventory bookInventory = mock(BookInventory.class);
-        Menu menu = new Menu(bookViewer, bookInventory);
+        BookList bookList = mock(BookList.class);
+        Menu menu = new Menu(bookViewer, bookList);
 
         Book book = mock(Book.class);
-        menu.showMenu(3, book);
+        menu.showMenu(3, book.getTitle());
 
-        verify(bookInventory, times(1)).returnBook(book);
+        verify(bookList, times(1)).returnBook(book.getTitle());
     }
 
     @Test
