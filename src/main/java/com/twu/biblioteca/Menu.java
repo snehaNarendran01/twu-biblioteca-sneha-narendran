@@ -22,6 +22,8 @@ public class Menu {
                 String bookToBeReturned = "";
                 bookList.returnBook(bookToBeReturned);
                 break;
+            case 4:
+                return;
             default:
                 displayInvalidOptionMessage();
         }
@@ -33,7 +35,6 @@ public class Menu {
 
     public void displayMenu() {
         System.out.print("\nSelect any one of the options: \n1: Listing all books\n2: Checkout a specified book\n3: Return a book\n4: Quit the application");
-        int option = 0;
-        showMenu(option);
+
     }
 }

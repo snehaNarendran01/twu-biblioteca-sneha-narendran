@@ -70,10 +70,19 @@ class MenuTest {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         Menu menu = new Menu(null, null);
-        String expectedString = "Select any one of the options: \n1: Listing all books\n2: Checkout a specified book\n3: Return a book\n4: Quit the application";
+        String expectedString = "\nSelect any one of the options: \n1: Listing all books\n2: Checkout a specified book\n3: Return a book\n4: Quit the application";
 
         menu.displayMenu();
 
         assertEquals(expectedString, byteArrayOutputStream.toString());
+    }
+
+    @Test
+    void shouldQuitTheApplicationIfOptionFourIsSelected() {
+        BookViewer bookViewer = mock(BookViewer.class);
+        BookList bookList = mock(BookList.class);
+        Menu menu = new Menu(bookViewer, bookList);
+
+        menu.showMenu(4);
     }
 }
