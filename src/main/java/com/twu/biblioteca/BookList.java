@@ -21,13 +21,14 @@ public class BookList {
             System.out.print("Sorry, that book is not available");
         } else {
             bookList.remove(title);
+            checkedOutBookList.add(title);
             System.out.print("Thank you! Enjoy the book");
         }
     }
 
     public void returnBook() {
         String book = userInput.scanBookTitle();
-        if (bookList.contains(book)) {
+        if (checkedOutBookList.contains(book)) {
             System.out.print("Thank you for returning the book");
         } else {
             System.out.print("That is not a valid book to return.");
@@ -35,9 +36,4 @@ public class BookList {
 
     }
 
-    public ArrayList<String> availableBooks() {
-        ArrayList<String> availableBooks = new ArrayList<>();
-        availableBooks.add("Inseparable Twins");
-        return availableBooks;
-    }
 }

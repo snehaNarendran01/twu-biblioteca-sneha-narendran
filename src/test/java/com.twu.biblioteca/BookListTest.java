@@ -1,12 +1,9 @@
 package com.twu.biblioteca;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -88,16 +85,16 @@ class BookListTest {
     }
 
     @Test
-    void shouldReturnListOfAvailableBooks() {
+    void shouldOnlyBeAbleToReturnCheckedOutBooks() {
+        initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        ArrayList<String> expectedListOfAvailableBooks = new ArrayList<>(Collections.singletonList("Inseparable Twins"));
+        String expectedUnSuccessfulMessage = "Thank you! Enjoy the bookThank you for returning the book";
 
         bookList.checkout();
+        bookList.returnBook();
 
-        ArrayList<String> actualBookList = bookList.availableBooks();
-        Assertions.assertEquals(expectedListOfAvailableBooks, actualBookList);
+        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
-
 }
