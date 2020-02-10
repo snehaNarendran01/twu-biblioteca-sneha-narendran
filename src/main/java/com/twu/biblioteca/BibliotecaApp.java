@@ -10,7 +10,6 @@ public class BibliotecaApp {
         Menu menu = new Menu(bookViewer, bookList);
         menu.displayMenu();
         menu.showMenu();
-
     }
 
 }

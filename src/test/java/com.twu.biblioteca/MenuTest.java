@@ -86,7 +86,7 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(bookList, times(1)).returnBook("Harry Potter");
+        verify(bookList, times(1)).returnBook();
     }
 
     @Test

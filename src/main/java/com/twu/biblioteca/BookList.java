@@ -22,7 +22,8 @@ public class BookList {
         }
     }
 
-    public void returnBook(String book) {
+    public void returnBook() {
+        String book = scanner.nextLine();
         if (bookList.contains(book)) {
             System.out.print("Thank you for returning the book");
         } else {
@@ -31,7 +32,4 @@ public class BookList {
 
     }
 
-    public void add(String title) {
-        bookList.add(title);
-    }
 }

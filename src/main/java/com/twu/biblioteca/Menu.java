@@ -19,11 +19,12 @@ public class Menu {
                 bookViewer.printBookDetails();
                 break;
             case 2:
+                System.out.println("Enter a book to checkout");
                 bookList.checkout();
                 break;
             case 3:
-                String bookToBeReturned = "Harry Potter";
-                bookList.returnBook(bookToBeReturned);
+                System.out.println("Enter a book to return");
+                bookList.returnBook();
                 break;
             case 4:
 //                    System.exit(0);

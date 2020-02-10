@@ -8,7 +8,6 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
 
 class BookListTest {
     private ByteArrayOutputStream initializeOutputStream() {
@@ -58,11 +57,12 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() {
         ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
-        Book book = mock(Book.class);
+        String input = "Harry Poter";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
         String expectedUnSuccessfulMessage = "That is not a valid book to return.";
 
-        bookList.returnBook(book.getTitle());
+        bookList.returnBook();
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
@@ -70,12 +70,12 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
         ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
-        Book book = mock(Book.class);
+        String input = "Harry Potter";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
         String expectedUnSuccessfulMessage = "Thank you for returning the book";
-        bookList.add(book.getTitle());
 
-        bookList.returnBook(book.getTitle());
+        bookList.returnBook();
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
