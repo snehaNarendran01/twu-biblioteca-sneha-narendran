@@ -1,18 +1,19 @@
 package com.twu.biblioteca;
 
-import java.time.Year;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BookList {
+    private Scanner scanner = new Scanner(System.in);
     private ArrayList<String> bookList;
 
     public BookList() {
         this.bookList = new ArrayList<>();
-        Book book = new Book("Harry Potter", "J.K Rowling", Year.of(1997));
-        bookList.add(book.getTitle());
+        bookList.add("Harry Potter");
     }
 
-    public void checkout(String title) {
+    public void checkout() {
+        String title = scanner.nextLine();
         if (!bookList.contains(title)) {
             System.out.print("Sorry, that book is not available");
         } else {

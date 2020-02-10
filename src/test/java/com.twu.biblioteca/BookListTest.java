@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -18,10 +19,11 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInList() {
-        Book book = mock(Book.class);
+        String input = "Harry Potter";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
         try {
-            bookList.checkout(book.getTitle());
+            bookList.checkout();
         } catch (Exception e) {
             fail();
         }
@@ -30,11 +32,12 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() {
         ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
-        Book book = mock(Book.class);
+        String input = "ssdsdsdsdd";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
         String expectedUnSuccessfulMessage = "Sorry, that book is not available";
 
-        bookList.checkout(book.getTitle());
+        bookList.checkout();
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
@@ -42,12 +45,12 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() {
         ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
-        Book book = mock(Book.class);
+        String input = "Harry Potter";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
-        bookList.add(book.getTitle());
         String expectedSuccessMessage = "Thank you! Enjoy the book";
 
-        bookList.checkout(book.getTitle());
+        bookList.checkout();
 
         assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
     }
