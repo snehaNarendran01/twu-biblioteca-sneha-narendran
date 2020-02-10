@@ -77,7 +77,8 @@ class BookListTest {
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        String expectedUnSuccessfulMessage = "Thank you for returning the book";
+        String expectedUnSuccessfulMessage = "Thank you! Enjoy the bookThank you for returning the book";
+        bookList.checkout();
 
         bookList.returnBook();
 
@@ -96,5 +97,21 @@ class BookListTest {
         bookList.returnBook();
 
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+    }
+
+    @Test
+    void shouldBeAbleToCheckoutAReturnedBook() {
+        initializeOutputStream();
+        UserInput userInput = mock(UserInput.class);
+        BookList bookList = new BookList(userInput);
+        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        String expectedUnSuccessfulMessage = "Thank you! Enjoy the bookThank you for returning the bookThank you! Enjoy the book";
+        bookList.checkout();
+        bookList.returnBook();
+
+        bookList.checkout();
+
+        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+
     }
 }

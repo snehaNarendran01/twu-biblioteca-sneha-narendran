@@ -29,6 +29,7 @@ public class BookList {
     public void returnBook() {
         String book = userInput.scanBookTitle();
         if (checkedOutBookList.contains(book)) {
+            bookList.add(book);
             System.out.print("Thank you for returning the book");
         } else {
             System.out.print("That is not a valid book to return.");
