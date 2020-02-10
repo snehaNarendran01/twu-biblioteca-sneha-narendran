@@ -6,9 +6,11 @@ import java.util.Scanner;
 public class BookList {
     private Scanner scanner = new Scanner(System.in);
     private ArrayList<String> bookList;
+    private ArrayList<String> checkedOutBookList;
 
     public BookList() {
         this.bookList = new ArrayList<>();
+        checkedOutBookList = new ArrayList<>();
         bookList.add("Harry Potter");
     }
 

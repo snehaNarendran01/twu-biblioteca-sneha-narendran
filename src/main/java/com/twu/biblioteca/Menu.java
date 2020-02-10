@@ -1,19 +1,18 @@
 package com.twu.biblioteca;
 
-import java.util.Scanner;
-
 public class Menu {
-    private Scanner scanner = new Scanner(System.in);
+    private UserInput userInput;
     private BookViewer bookViewer;
     private BookList bookList;
 
-    public Menu(BookViewer bookViewer, BookList bookInventory) {
+    public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput) {
         this.bookViewer = bookViewer;
         this.bookList = bookInventory;
+        this.userInput = userInput;
     }
 
     public void showMenu() {
-        int option = scanner.nextInt();
+        int option = userInput.scanOption();
         switch (option) {
             case 1:
                 bookViewer.printBookDetails();

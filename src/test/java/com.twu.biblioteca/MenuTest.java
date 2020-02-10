@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -27,10 +26,10 @@ class MenuTest {
 
     @Test
     void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() {
-        String input = "1";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        UserInput userInput = mock(UserInput.class);
         BookViewer bookViewer = mock(BookViewer.class);
-        Menu menu = new Menu(bookViewer, null);
+        Menu menu = new Menu(bookViewer, null, userInput);
+        when(userInput.scanOption()).thenReturn(1);
 
         menu.showMenu();
 
@@ -39,10 +38,10 @@ class MenuTest {
 
     @Test
     void shouldNotBeAbleToViewTheListOfBooksFromTheMenuIfChosenOptionIsNotOne() {
-        String input = "8";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        UserInput userInput = mock(UserInput.class);
         BookViewer bookViewer = mock(BookViewer.class);
-        Menu menu = new Menu(bookViewer, null);
+        Menu menu = new Menu(bookViewer, null, userInput);
+        when(userInput.scanOption()).thenReturn(8);
 
         menu.showMenu();
 
@@ -51,12 +50,12 @@ class MenuTest {
 
     @Test
     void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() {
-        String input = "8";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        UserInput userInput = mock(UserInput.class);
+        when(userInput.scanOption()).thenReturn(8);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
         BookViewer bookViewer = mock(BookViewer.class);
-        Menu menu = new Menu(bookViewer, null);
+        Menu menu = new Menu(bookViewer, null, userInput);
         String expectedErrorMessage = "Please select a valid option!";
 
         menu.showMenu();
@@ -66,11 +65,11 @@ class MenuTest {
 
     @Test
     void shouldBeAbleToCheckoutABookIfChosenOptionTwo() {
-        String input = "2";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        UserInput userInput = mock(UserInput.class);
+        when(userInput.scanOption()).thenReturn(2);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
-        Menu menu = new Menu(bookViewer, bookList);
+        Menu menu = new Menu(bookViewer, bookList, userInput);
 
         menu.showMenu();
 
@@ -79,11 +78,11 @@ class MenuTest {
 
     @Test
     void shouldBeAbleToReturnBookIfChosenOptionIsThree() {
-        String input = "3";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        UserInput userInput = mock(UserInput.class);
+        when(userInput.scanOption()).thenReturn(3);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
-        Menu menu = new Menu(bookViewer, bookList);
+        Menu menu = new Menu(bookViewer, bookList, userInput);
 
         menu.showMenu();
 
@@ -92,9 +91,10 @@ class MenuTest {
 
     @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() {
+        UserInput userInput = mock(UserInput.class);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
-        Menu menu = new Menu(null, null);
+        Menu menu = new Menu(null, null, userInput);
         String expectedString = "\nSelect any one of the options: \n1: Listing all books\n2: " +
                 "Checkout a specified book\n3: Return a book\n4: Quit the application";
 
@@ -106,11 +106,11 @@ class MenuTest {
     @Disabled
     @Test
     void shouldQuitTheApplicationIfOptionFourIsSelected() {
-        String input = "4";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        UserInput userInput = mock(UserInput.class);
+        when(userInput.scanOption()).thenReturn(4);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
-        Menu menu = new Menu(bookViewer, bookList);
+        Menu menu = new Menu(bookViewer, bookList, userInput);
 
         menu.showMenu();
     }

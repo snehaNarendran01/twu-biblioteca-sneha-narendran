@@ -15,7 +15,6 @@ class BookListTest {
     private void initializeOutputStream() {
         byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
-
     }
 
     @Test
