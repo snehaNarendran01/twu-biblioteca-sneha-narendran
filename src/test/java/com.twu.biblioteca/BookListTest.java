@@ -1,11 +1,15 @@
 package com.twu.biblioteca;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +40,7 @@ class BookListTest {
         UserInput userInput = mock(UserInput.class);
         initializeOutputStream();
         BookList bookList = new BookList(userInput);
-        when(userInput.scanBookTitle()).thenReturn("yunnh");
+        when(userInput.scanBookTitle()).thenReturn("Famous Fie");
         String expectedUnSuccessfulMessage = "Sorry, that book is not available";
 
         bookList.checkout();
@@ -84,12 +88,16 @@ class BookListTest {
     }
 
     @Test
-    void shouldReturnIfTheBookIsAvailable() {
-        UserInput userInput = new UserInput();
+    void shouldReturnListOfAvailableBooks() {
+        UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput);
-        String wantedBook = "";
+        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        ArrayList<String> expectedListOfAvailableBooks = new ArrayList<>(Collections.singletonList("Inseparable Twins"));
 
-        assertTrue(bookList.isAvailable(wantedBook));
+        bookList.checkout();
 
+        ArrayList<String> actualBookList = bookList.availableBooks();
+        Assertions.assertEquals(expectedListOfAvailableBooks, actualBookList);
     }
+
 }

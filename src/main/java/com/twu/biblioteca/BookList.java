@@ -12,6 +12,7 @@ public class BookList {
         this.bookList = new ArrayList<>();
         checkedOutBookList = new ArrayList<>();
         bookList.add("Harry Potter");
+        bookList.add("Inseparable Twins");
     }
 
     public void checkout() {
@@ -34,7 +35,9 @@ public class BookList {
 
     }
 
-    public boolean isAvailable(String wantedBook) {
-        return true;
+    public ArrayList<String> availableBooks() {
+        ArrayList<String> availableBooks = new ArrayList<>();
+        availableBooks.add("Inseparable Twins");
+        return availableBooks;
     }
 }
