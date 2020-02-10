@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Menu {
     private UserInput userInput;
     private BookViewer bookViewer;
@@ -11,37 +14,36 @@ public class Menu {
         this.userInput = userInput;
     }
 
-    public void showMenu() {
+    public void showMenu() throws IOException {
         int option = userInput.scanOption();
-        switch (option) {
-            case 1:
-                bookViewer.printBookDetails();
-                break;
-            case 2:
-                System.out.println("Enter a book to checkout");
-                bookList.checkout();
-                break;
-            case 3:
-                System.out.println("Enter a book to return");
-                bookList.returnBook();
-                break;
-            case 4:
-                System.exit(0);
-            default:
-                displayInvalidOptionMessage();
+        int flag = 0;
+        ArrayList<Command> commands = getCommands();
+        for (Command command : commands) {
+            if (command.getOption() == option) {
+                command.execute();
+                flag = 1;
+            }
         }
-
+        if (flag == 0)
+            displayInvalidOptionMessage();
     }
-
 
     public void displayMenu() {
         System.out.print("\nSelect any one of the options: \n1: Listing all books\n" +
-                "2: Checkout a specified book\n3: Return a book\n4: Quit the application");
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n");
     }
 
     private void displayInvalidOptionMessage() {
         System.out.print("Please select a valid option!");
     }
 
+    private ArrayList<Command> getCommands() {
+        ArrayList<Command> commandList = new ArrayList<>();
+        commandList.add(new ListBook(bookViewer));
+        commandList.add(new CheckoutBook(bookList, userInput));
+        commandList.add(new ReturnBook(bookList));
+        commandList.add(new SystemExit());
+        return commandList;
+    }
 
 }

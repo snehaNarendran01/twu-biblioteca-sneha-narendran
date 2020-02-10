@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BookList {
@@ -15,8 +16,7 @@ public class BookList {
         bookList.add("Inseparable Twins");
     }
 
-    public void checkout() {
-        String title = userInput.scanBookTitle();
+    public void checkout(String title) {
         if (!bookList.contains(title)) {
             System.out.print("Sorry, that book is not available");
         } else {
@@ -26,7 +26,7 @@ public class BookList {
         }
     }
 
-    public void returnBook() {
+    public void returnBook() throws IOException {
         String book = userInput.scanBookTitle();
         if (checkedOutBookList.contains(book)) {
             bookList.add(book);

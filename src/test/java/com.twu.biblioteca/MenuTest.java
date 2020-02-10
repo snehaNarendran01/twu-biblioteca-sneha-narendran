@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +26,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() {
+    void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() throws IOException {
         UserInput userInput = mock(UserInput.class);
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null, userInput);
@@ -37,7 +38,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuIfChosenOptionIsNotOne() {
+    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuIfChosenOptionIsNotOne() throws IOException {
         UserInput userInput = mock(UserInput.class);
         BookViewer bookViewer = mock(BookViewer.class);
         Menu menu = new Menu(bookViewer, null, userInput);
@@ -49,7 +50,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() {
+    void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanOption()).thenReturn(8);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -64,7 +65,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToCheckoutABookIfChosenOptionTwo() {
+    void shouldBeAbleToCheckoutABookIfChosenOptionTwo() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanOption()).thenReturn(2);
         BookViewer bookViewer = mock(BookViewer.class);
@@ -73,11 +74,11 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(bookList, times(1)).checkout();
+        verify(bookList, times(1)).checkout(null);
     }
 
     @Test
-    void shouldBeAbleToReturnBookIfChosenOptionIsThree() {
+    void shouldBeAbleToReturnBookIfChosenOptionIsThree() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanOption()).thenReturn(3);
         BookViewer bookViewer = mock(BookViewer.class);
@@ -96,7 +97,7 @@ class MenuTest {
         System.setOut(new PrintStream(byteArrayOutputStream));
         Menu menu = new Menu(null, null, userInput);
         String expectedString = "\nSelect any one of the options: \n1: Listing all books\n2: " +
-                "Checkout a specified book\n3: Return a book\n4: Quit the application";
+                "Checkout a specified book\n3: Return a book\n4: Quit the application\n";
 
         menu.displayMenu();
 
@@ -105,7 +106,7 @@ class MenuTest {
 
     @Disabled
     @Test
-    void shouldQuitTheApplicationIfOptionFourIsSelected() {
+    void shouldQuitTheApplicationIfOptionFourIsSelected() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanOption()).thenReturn(4);
         BookViewer bookViewer = mock(BookViewer.class);

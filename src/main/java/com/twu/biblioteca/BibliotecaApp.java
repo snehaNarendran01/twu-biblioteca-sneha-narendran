@@ -1,8 +1,10 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
+
 public class BibliotecaApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         WelcomePage welcomePage = new WelcomePage();
         welcomePage.getWelcomeMessage();
         BookViewer bookViewer = new BookViewer();
@@ -12,5 +14,4 @@ public class BibliotecaApp {
         menu.displayMenu();
         menu.showMenu();
     }
-
 }
