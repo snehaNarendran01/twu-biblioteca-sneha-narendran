@@ -10,10 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class BookListTest {
-    private ByteArrayOutputStream initializeOutputStream() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    private ByteArrayOutputStream byteArrayOutputStream;
+
+    private void initializeOutputStream() {
+        byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
-        return byteArrayOutputStream;
+
     }
 
     @Test
@@ -30,7 +32,7 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() {
-        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
+        initializeOutputStream();
         String input = "ssdsdsdsdd";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
@@ -43,7 +45,7 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() {
-        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
+        initializeOutputStream();
         String input = "Harry Potter";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
@@ -56,7 +58,7 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() {
-        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
+        initializeOutputStream();
         String input = "Harry Poter";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
@@ -69,7 +71,7 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
-        ByteArrayOutputStream byteArrayOutputStream = initializeOutputStream();
+        initializeOutputStream();
         String input = "Harry Potter";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         BookList bookList = new BookList();
