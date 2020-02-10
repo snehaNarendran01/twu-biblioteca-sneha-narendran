@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -62,7 +61,6 @@ class BookListTest {
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-
         BookList bookList = new BookList(userInput);
         when(userInput.scanBookTitle()).thenReturn("Harry Poter");
         String expectedUnSuccessfulMessage = "That is not a valid book to return.";
@@ -76,7 +74,6 @@ class BookListTest {
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-
         BookList bookList = new BookList(userInput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedUnSuccessfulMessage = "Thank you for returning the book";
@@ -86,4 +83,13 @@ class BookListTest {
         assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
     }
 
+    @Test
+    void shouldReturnIfTheBookIsAvailable() {
+        UserInput userInput = new UserInput();
+        BookList bookList = new BookList(userInput);
+        String wantedBook = "";
+
+        assertTrue(bookList.isAvailable(wantedBook));
+
+    }
 }

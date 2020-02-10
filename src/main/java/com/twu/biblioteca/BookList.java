@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 
 public class BookList {
-    private Scanner scanner = new Scanner(System.in);
     private ArrayList<String> bookList;
     private ArrayList<String> checkedOutBookList;
     private UserInput userInput;
@@ -35,4 +34,7 @@ public class BookList {
 
     }
 
+    public boolean isAvailable(String wantedBook) {
+        return true;
+    }
 }
