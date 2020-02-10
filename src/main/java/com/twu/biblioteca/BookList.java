@@ -1,21 +1,22 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BookList {
     private Scanner scanner = new Scanner(System.in);
     private ArrayList<String> bookList;
     private ArrayList<String> checkedOutBookList;
+    private UserInput userInput;
 
-    public BookList() {
+    public BookList(UserInput userInput) {
+        this.userInput = userInput;
         this.bookList = new ArrayList<>();
         checkedOutBookList = new ArrayList<>();
         bookList.add("Harry Potter");
     }
 
     public void checkout() {
-        String title = scanner.nextLine();
+        String title = userInput.scanBookTitle();
         if (!bookList.contains(title)) {
             System.out.print("Sorry, that book is not available");
         } else {
@@ -25,7 +26,7 @@ public class BookList {
     }
 
     public void returnBook() {
-        String book = scanner.nextLine();
+        String book = userInput.scanBookTitle();
         if (bookList.contains(book)) {
             System.out.print("Thank you for returning the book");
         } else {

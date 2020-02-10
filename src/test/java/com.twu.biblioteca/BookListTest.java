@@ -2,26 +2,29 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class BookListTest {
+
     private ByteArrayOutputStream byteArrayOutputStream;
 
     private void initializeOutputStream() {
         byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
+
     }
 
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInList() {
-        String input = "Harry Potter";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        BookList bookList = new BookList();
+        UserInput userInput = mock(UserInput.class);
+        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        BookList bookList = new BookList(userInput);
         try {
             bookList.checkout();
         } catch (Exception e) {
@@ -31,10 +34,10 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() {
+        UserInput userInput = mock(UserInput.class);
         initializeOutputStream();
-        String input = "ssdsdsdsdd";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        BookList bookList = new BookList();
+        BookList bookList = new BookList(userInput);
+        when(userInput.scanBookTitle()).thenReturn("yunnh");
         String expectedUnSuccessfulMessage = "Sorry, that book is not available";
 
         bookList.checkout();
@@ -45,9 +48,9 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() {
         initializeOutputStream();
-        String input = "Harry Potter";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        BookList bookList = new BookList();
+        UserInput userInput = mock(UserInput.class);
+        BookList bookList = new BookList(userInput);
+        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessMessage = "Thank you! Enjoy the book";
 
         bookList.checkout();
@@ -58,9 +61,10 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() {
         initializeOutputStream();
-        String input = "Harry Poter";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        BookList bookList = new BookList();
+        UserInput userInput = mock(UserInput.class);
+
+        BookList bookList = new BookList(userInput);
+        when(userInput.scanBookTitle()).thenReturn("Harry Poter");
         String expectedUnSuccessfulMessage = "That is not a valid book to return.";
 
         bookList.returnBook();
@@ -71,9 +75,10 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() {
         initializeOutputStream();
-        String input = "Harry Potter";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        BookList bookList = new BookList();
+        UserInput userInput = mock(UserInput.class);
+
+        BookList bookList = new BookList(userInput);
+        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedUnSuccessfulMessage = "Thank you for returning the book";
 
         bookList.returnBook();

@@ -10,4 +10,8 @@ public class UserInput {
         return scanner.nextInt();
     }
 
+    public String scanBookTitle() {
+        return scanner.nextLine();
+    }
+
 }

@@ -6,8 +6,8 @@ public class BibliotecaApp {
         WelcomePage welcomePage = new WelcomePage();
         welcomePage.getWelcomeMessage();
         BookViewer bookViewer = new BookViewer();
-        BookList bookList = new BookList();
         UserInput userInput = new UserInput();
+        BookList bookList = new BookList(userInput);
         Menu menu = new Menu(bookViewer, bookList, userInput);
         menu.displayMenu();
         menu.showMenu();
