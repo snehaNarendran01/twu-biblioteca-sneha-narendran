@@ -27,7 +27,7 @@ public class Menu {
                 bookList.returnBook();
                 break;
             case 4:
-//                    System.exit(0);
+                System.exit(0);
             default:
                 displayInvalidOptionMessage();
         }
