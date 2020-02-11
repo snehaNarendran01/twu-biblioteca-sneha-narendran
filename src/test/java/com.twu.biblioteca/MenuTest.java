@@ -47,7 +47,7 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(userOutput, times(1)).displayInvalidOptionMessage();
+        verify(userOutput, times(1)).print("Please select a valid option!");
     }
 
     @Test
@@ -92,7 +92,8 @@ class MenuTest {
 
         menu.displayMenu();
 
-        verify(userOutput, times(1)).showMenu();
+        verify(userOutput, times(1)).print("\nSelect any one of the options: \n1: Listing all books\n" +
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n");
     }
 
     @Test

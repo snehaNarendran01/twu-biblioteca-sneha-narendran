@@ -2,27 +2,19 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.Year;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 class BookTest {
     @Test
     void shouldReturnTheBookDetails() {
-        ByteArrayOutputStream byteArrayOutputStream = initialize();
-        Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942));
+        UserOutput userOutput = mock(UserOutput.class);
+        Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942), userOutput);
         String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\n";
 
         book.printInformation();
 
-        assertEquals(expected, byteArrayOutputStream.toString());
-    }
-
-    private ByteArrayOutputStream initialize() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
-        return byteArrayOutputStream;
+        verify(userOutput, times(1)).print(expected);
     }
 }

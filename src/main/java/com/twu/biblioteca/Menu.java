@@ -39,11 +39,12 @@ public class Menu {
 
 
     public void displayMenu() {
-        userOutput.showMenu();
+        userOutput.print("\nSelect any one of the options: \n1: Listing all books\n" +
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n");
     }
 
     private void displayInvalidOptionMessage() {
-        userOutput.displayInvalidOptionMessage();
+        userOutput.print("Please select a valid option!");
     }
 
     private ArrayList<Command> getCommands() {
