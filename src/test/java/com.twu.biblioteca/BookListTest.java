@@ -6,14 +6,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BookListTest {
 
     private ByteArrayOutputStream byteArrayOutputStream;
+    private UserOutput userOutput = mock(UserOutput.class);
 
     private void initializeOutputStream() {
         byteArrayOutputStream = new ByteArrayOutputStream();
@@ -24,7 +23,7 @@ class BookListTest {
     void shouldBeAbleToCheckoutBookIfItExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        BookList bookList = new BookList(userInput);
+        BookList bookList = new BookList(userInput, userOutput);
         try {
             bookList.checkout("Harry Potter");
         } catch (Exception e) {
@@ -33,85 +32,90 @@ class BookListTest {
     }
 
     @Test
-    void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() {
+    void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
         initializeOutputStream();
-        BookList bookList = new BookList(userInput);
+        BookList bookList = new BookList(userInput, userOutput);
 
-        String expectedUnSuccessfulMessage = "Sorry, that book is not available";
+        String expectedUnSuccessfulMessage = "Sorry, that book is not available\n";
 
         bookList.checkout("Famous Fie");
 
-        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
     }
 
     @Test
-    void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() {
+    void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() throws IOException {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput);
-        String expectedSuccessMessage = "Thank you! Enjoy the book";
+        BookList bookList = new BookList(userInput, userOutput);
+        String expectedSuccessMessage = "Thank you! Enjoy the book\n";
 
         bookList.checkout("Harry Potter");
 
-        assertEquals(expectedSuccessMessage, byteArrayOutputStream.toString());
+        verify(userOutput, times(1)).print(expectedSuccessMessage);
     }
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() throws IOException {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput);
+        BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Poter");
-        String expectedUnSuccessfulMessage = "That is not a valid book to return.";
+        String expectedUnSuccessfulMessage = "That is not a valid book to return.\n";
 
         bookList.returnBook();
 
-        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
     }
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() throws IOException {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput);
+        BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        String expectedUnSuccessfulMessage = "Thank you! Enjoy the bookThank you for returning the book";
+        String expectedSuccessfulMessageForCheckout = "Thank you! Enjoy the book\n";
+        String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
         bookList.checkout("Harry Potter");
 
         bookList.returnBook();
 
-        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+        verify(userOutput, times(1)).print(expectedSuccessfulMessageForCheckout);
+        verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);
     }
 
     @Test
     void shouldOnlyBeAbleToReturnCheckedOutBooks() throws IOException {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput);
+        BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        String expectedUnSuccessfulMessage = "Thank you! Enjoy the bookThank you for returning the book";
+        String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
+        String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
 
         bookList.checkout("Harry Potter");
         bookList.returnBook();
 
-        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
+        verify(userOutput, times(1)).print(expectedSuccessfulMessageForCheckedOutBooks);
+        verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);
     }
 
     @Test
     void shouldBeAbleToCheckoutAReturnedBook() throws IOException {
         initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput);
+        BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        String expectedUnSuccessfulMessage = "Thank you! Enjoy the bookThank you for returning the bookThank you! Enjoy the book";
+        String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
+        String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
         bookList.checkout("Harry Potter");
         bookList.returnBook();
 
         bookList.checkout("Harry Potter");
 
-        assertEquals(expectedUnSuccessfulMessage, byteArrayOutputStream.toString());
-
+        verify(userOutput, times(2)).print(expectedSuccessfulMessageForCheckedOutBooks);
+        verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);
     }
-
 }
+
