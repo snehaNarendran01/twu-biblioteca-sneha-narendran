@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
+
 public class ListBook implements Command {
     private BookViewer bookViewer;
 
@@ -13,7 +15,7 @@ public class ListBook implements Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         bookViewer.printBookDetails();
     }
 }

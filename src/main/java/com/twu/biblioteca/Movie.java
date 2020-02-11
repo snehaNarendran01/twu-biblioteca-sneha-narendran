@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
 import java.time.Year;
 
 public class Movie {
@@ -18,7 +19,7 @@ public class Movie {
         this.userOutput = userOutput;
     }
 
-    public void printDetails() {
+    public void printDetails() throws IOException {
         userOutput.print("Title: " + movieTitle + " Year of Release: " + yearReleased + " Name of Director: " + directorName + " Rating: " + rating + "\n");
     }
 }

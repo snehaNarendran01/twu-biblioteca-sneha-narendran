@@ -38,12 +38,12 @@ public class Menu {
     }
 
 
-    public void displayMenu() {
+    public void displayMenu() throws IOException {
         userOutput.print("\nSelect any one of the options: \n1: Listing all books\n" +
                 "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n");
     }
 
-    private void displayInvalidOptionMessage() {
+    private void displayInvalidOptionMessage() throws IOException {
         userOutput.print("Please select a valid option!");
     }
 

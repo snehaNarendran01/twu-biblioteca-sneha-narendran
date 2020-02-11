@@ -83,7 +83,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldDisplayTheMenuBeforeUserInputIsTaken() {
+    void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         UserInput userInput = mock(UserInput.class);
         UserOutput userOutput = mock(UserOutput.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);

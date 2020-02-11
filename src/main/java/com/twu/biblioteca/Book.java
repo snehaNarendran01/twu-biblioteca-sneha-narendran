@@ -1,10 +1,10 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
 import java.time.Year;
 
 
 public class Book {
-
     private String title;
     private String author;
     private Year yearPublished;
@@ -17,7 +17,7 @@ public class Book {
         this.userOutput = userOutput;
     }
 
-    public void printInformation() {
+    public void printInformation() throws IOException {
         userOutput.print("Title: " + title + " Author: " + author + " Year Of Publish: " + yearPublished + "\n");
     }
 }

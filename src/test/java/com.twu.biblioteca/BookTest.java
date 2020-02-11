@@ -2,13 +2,14 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.Year;
 
 import static org.mockito.Mockito.*;
 
 class BookTest {
     @Test
-    void shouldReturnTheBookDetails() {
+    void shouldReturnTheBookDetails() throws IOException {
         UserOutput userOutput = mock(UserOutput.class);
         Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942), userOutput);
         String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\n";
