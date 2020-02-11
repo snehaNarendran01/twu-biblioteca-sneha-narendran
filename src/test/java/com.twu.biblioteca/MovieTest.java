@@ -17,4 +17,15 @@ class MovieTest {
 
         verify(userOutput, times(1)).print(expected);
     }
+
+    @Test
+    void shouldPrintDetailsOfAnotherBook() {
+        UserOutput userOutput = mock(UserOutput.class);
+        Movie dumbo = new Movie("Dumbo", Year.of(2019), "Tim Burton", "7", userOutput);
+        String expectedDumboDetails = "Title: Dumbo Year of Release: 2019 Name of Director: Tim Burton Rating: 7\n";
+
+        dumbo.printDetails();
+
+        verify(userOutput, times(1)).print(expectedDumboDetails);
+    }
 }
