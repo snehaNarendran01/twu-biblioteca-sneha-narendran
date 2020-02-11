@@ -116,4 +116,17 @@ class MenuTest {
         menu.showMenu();
     }
 
+    @Test
+    void shouldNotQitTheApplicationUntilOptionFourIsSelected() throws IOException {
+        UserInput userInput = mock(UserInput.class);
+        when(userInput.scanOption()).thenReturn(1, 4, 2);
+        BookViewer bookViewer = mock(BookViewer.class);
+        BookList bookList = mock(BookList.class);
+        Menu menu = new Menu(bookViewer, bookList, userInput);
+
+        menu.showMenu();
+
+        verify(bookViewer, times(1)).printBookDetails();
+        verify(bookList, times(0)).checkout("Harry Potter");
+    }
 }

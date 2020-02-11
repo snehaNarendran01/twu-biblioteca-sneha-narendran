@@ -15,18 +15,22 @@ public class Menu {
     }
 
     public void showMenu() throws IOException {
-        int option = userInput.scanOption();
-        int flag = 0;
-        ArrayList<Command> commands = getCommands();
-        for (Command command : commands) {
-            if (command.getOption() == option) {
-                command.execute();
-                flag = 1;
+        int option;
+        do {
+            option = userInput.scanOption();
+            int flag = 0;
+            ArrayList<Command> commands = getCommands();
+            for (Command command : commands) {
+                if (command.getOption() == option) {
+                    command.execute();
+                    flag = 1;
+                }
             }
-        }
-        if (flag == 0)
-            displayInvalidOptionMessage();
+            if (flag == 0)
+                displayInvalidOptionMessage();
+        } while (option != 4);
     }
+
 
     public void displayMenu() {
         System.out.print("\nSelect any one of the options: \n1: Listing all books\n" +
