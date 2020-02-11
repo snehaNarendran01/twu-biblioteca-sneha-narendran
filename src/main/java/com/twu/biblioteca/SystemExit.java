@@ -1,6 +1,12 @@
 package com.twu.biblioteca;
 
 public class SystemExit implements Command {
+    private ApplicationQuitter applicationQuitter;
+
+    SystemExit(ApplicationQuitter applicationQuitter) {
+        this.applicationQuitter = applicationQuitter;
+    }
+
     @Override
     public int getOption() {
         return 4;
@@ -8,6 +14,6 @@ public class SystemExit implements Command {
 
     @Override
     public void execute() {
-        System.exit(0);
+        applicationQuitter.exitSystem();
     }
 }

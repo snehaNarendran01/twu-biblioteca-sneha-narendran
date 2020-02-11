@@ -4,19 +4,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Menu {
+
     private UserInput userInput;
+    private UserOutput userOutput;
+    private ApplicationQuitter applicationQuitter;
     private BookViewer bookViewer;
     private BookList bookList;
 
-    public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput) {
+    public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput, UserOutput userOutput, ApplicationQuitter applicationQuitter) {
         this.bookViewer = bookViewer;
         this.bookList = bookInventory;
         this.userInput = userInput;
+        this.userOutput = userOutput;
+        this.applicationQuitter = applicationQuitter;
     }
 
     public void showMenu() throws IOException {
         int option;
         do {
+            displayMenu();
             option = userInput.scanOption();
             int flag = 0;
             ArrayList<Command> commands = getCommands();
@@ -33,12 +39,11 @@ public class Menu {
 
 
     public void displayMenu() {
-        System.out.print("\nSelect any one of the options: \n1: Listing all books\n" +
-                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n");
+        userOutput.showMenu();
     }
 
     private void displayInvalidOptionMessage() {
-        System.out.print("Please select a valid option!");
+        userOutput.displayInvalidOptionMessage();
     }
 
     private ArrayList<Command> getCommands() {
@@ -46,8 +51,7 @@ public class Menu {
         commandList.add(new ListBook(bookViewer));
         commandList.add(new CheckoutBook(bookList, userInput));
         commandList.add(new ReturnBook(bookList));
-        commandList.add(new SystemExit());
+        commandList.add(new SystemExit(applicationQuitter));
         return commandList;
     }
-
 }
