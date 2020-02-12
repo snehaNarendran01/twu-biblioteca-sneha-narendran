@@ -25,7 +25,6 @@ class MovieListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfMovieIfItDoesNotExistInList() throws IOException {
         MovieList movieList = new MovieList(userInput, userOutput);
-
         String expectedUnSuccessfulMessage = "Sorry, that movie is not available\n";
 
         movieList.checkout("Birds Of Prey");
@@ -36,11 +35,23 @@ class MovieListTest {
     @Test
     void shouldBeAbleToGetASuccessfulMessageIfMovieExistInList() throws IOException {
         MovieList movieList = new MovieList(userInput, userOutput);
-
         String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
 
         movieList.checkout("Life Of Pi");
 
         verify(userOutput, times(1)).print(expectedSuccessfulMessage);
+    }
+
+    @Test
+    void shouldNotBeAbleToCheckoutTheMovieTwice() throws IOException {
+        MovieList movieList = new MovieList(userInput, userOutput);
+        String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
+        String expectedUnSuccessfulMessage = "Sorry, that movie is not available\n";
+
+        movieList.checkout("Life Of Pi");
+        movieList.checkout("Life Of Pi");
+
+        verify(userOutput, times(1)).print(expectedSuccessfulMessage);
+        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
     }
 }
