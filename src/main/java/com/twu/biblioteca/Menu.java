@@ -14,10 +14,11 @@ public class Menu {
     private BookViewer bookViewer;
     private BookList bookList;
 
-    public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput,
-                UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer, MovieList movieList, Validator validator) {
+    public Menu(BookViewer bookViewer, BookList bookList, UserInput userInput,
+                UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer,
+                MovieList movieList, Validator validator) {
         this.bookViewer = bookViewer;
-        this.bookList = bookInventory;
+        this.bookList = bookList;
         this.userInput = userInput;
         this.userOutput = userOutput;
         this.applicationQuitter = applicationQuitter;
