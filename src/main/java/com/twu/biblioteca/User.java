@@ -16,6 +16,6 @@ public class User {
     }
 
     public void printInformation() throws IOException {
-        userOutput.print("Name: Jim\nEmail-id: jim12@gmail.com\nContact Number:9391049708\n");
+        userOutput.print("Name: " + name + "\nEmail-id: " + emailId + "\nContact Number: " + phoneNumber + "\n");
     }
 }
