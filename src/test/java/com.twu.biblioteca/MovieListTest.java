@@ -33,4 +33,14 @@ class MovieListTest {
         verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
     }
 
+    @Test
+    void shouldBeAbleToGetASuccessfulMessageIfMovieExistInList() throws IOException {
+        MovieList movieList = new MovieList(userInput, userOutput);
+
+        String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
+
+        movieList.checkout("Life Of Pi");
+
+        verify(userOutput, times(1)).print(expectedSuccessfulMessage);
+    }
 }

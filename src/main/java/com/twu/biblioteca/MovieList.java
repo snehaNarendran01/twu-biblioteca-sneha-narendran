@@ -20,6 +20,7 @@ public class MovieList {
     public void checkout(String movieTitle) throws IOException {
         if (!listOfMovies.contains(movieTitle)) {
             userOutput.print("Sorry, that movie is not available\n");
-        }
+        } else
+            userOutput.print("Thank you! Enjoy the movie\n");
     }
 }
