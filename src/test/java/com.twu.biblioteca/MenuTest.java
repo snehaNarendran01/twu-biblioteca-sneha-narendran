@@ -7,6 +7,7 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 
 class MenuTest {
+    Validator validator = mock(Validator.class);
 
     @Test
     void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() throws IOException {
@@ -16,7 +17,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
         when(userInput.scanOption()).thenReturn(1, 4);
 
         menu.showMenu();
@@ -32,7 +33,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
         when(userInput.scanOption()).thenReturn(8, 4);
 
         menu.showMenu();
@@ -49,7 +50,7 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.showMenu();
 
@@ -66,7 +67,9 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Validator validator = mock(Validator.class);
+        when(validator.isValid()).thenReturn(true);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.showMenu();
 
@@ -83,7 +86,7 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.showMenu();
 
@@ -97,7 +100,7 @@ class MenuTest {
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(null, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(null, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.displayMenu();
 
@@ -115,7 +118,7 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.showMenu();
     }
@@ -130,7 +133,7 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.showMenu();
 
@@ -146,7 +149,7 @@ class MenuTest {
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
         when(userInput.scanOption()).thenReturn(5, 4);
 
         menu.showMenu();
@@ -164,7 +167,7 @@ class MenuTest {
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
 
         menu.showMenu();
 

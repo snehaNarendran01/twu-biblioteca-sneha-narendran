@@ -10,11 +10,12 @@ public class Menu {
     private ApplicationQuitter applicationQuitter;
     private MovieViewer movieViewer;
     private MovieList movieList;
+    private Validator validator;
     private BookViewer bookViewer;
     private BookList bookList;
 
     public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput,
-                UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer, MovieList movieList) {
+                UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer, MovieList movieList, Validator validator) {
         this.bookViewer = bookViewer;
         this.bookList = bookInventory;
         this.userInput = userInput;
@@ -22,6 +23,7 @@ public class Menu {
         this.applicationQuitter = applicationQuitter;
         this.movieViewer = movieViewer;
         this.movieList = movieList;
+        this.validator = validator;
     }
 
     public void showMenu() throws IOException {
@@ -55,7 +57,7 @@ public class Menu {
     private ArrayList<Command> getCommands() {
         ArrayList<Command> commandList = new ArrayList<>();
         commandList.add(new ListBook(bookViewer));
-        commandList.add(new CheckoutBook(bookList, userInput, userOutput));
+        commandList.add(new CheckoutBook(bookList, userInput, userOutput, validator));
         commandList.add(new ReturnBook(bookList));
         commandList.add(new SystemExit(applicationQuitter));
         commandList.add(new ListMovies(movieViewer));
