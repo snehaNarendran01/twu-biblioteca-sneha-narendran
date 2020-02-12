@@ -3,11 +3,13 @@ package com.twu.biblioteca;
 import java.io.IOException;
 
 public class ReturnBook implements Command {
-    private BookList bookList;
     UserOutput userOutput = new UserOutput();
+    private BookList bookList;
+    private Validator validator;
 
-    ReturnBook(BookList bookList) {
+    ReturnBook(BookList bookList, Validator validator) {
         this.bookList = bookList;
+        this.validator = validator;
     }
 
     @Override
@@ -17,7 +19,9 @@ public class ReturnBook implements Command {
 
     @Override
     public void execute() throws IOException {
-        userOutput.print("Enter a book title to return");
-        bookList.returnBook();
+        if (validator.isValid()) {
+            userOutput.print("Enter a book title to return");
+            bookList.returnBook();
+        }
     }
 }

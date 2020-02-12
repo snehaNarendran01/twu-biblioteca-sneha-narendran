@@ -58,7 +58,7 @@ public class Menu {
         ArrayList<Command> commandList = new ArrayList<>();
         commandList.add(new ListBook(bookViewer));
         commandList.add(new CheckoutBook(bookList, userInput, userOutput, validator));
-        commandList.add(new ReturnBook(bookList));
+        commandList.add(new ReturnBook(bookList, validator));
         commandList.add(new SystemExit(applicationQuitter));
         commandList.add(new ListMovies(movieViewer));
         commandList.add(new CheckoutMovies(movieList, userInput, userOutput));
