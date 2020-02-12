@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class ReturnBook implements Command {
     private BookList bookList;
+    UserOutput userOutput = new UserOutput();
 
     ReturnBook(BookList bookList) {
         this.bookList = bookList;
@@ -16,7 +17,7 @@ public class ReturnBook implements Command {
 
     @Override
     public void execute() throws IOException {
-        System.out.println("Enter a book title to return");
+        userOutput.print("Enter a book title to return");
         bookList.returnBook();
     }
 }
