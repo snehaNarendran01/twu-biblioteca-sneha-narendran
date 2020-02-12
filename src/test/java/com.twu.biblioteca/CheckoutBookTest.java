@@ -10,8 +10,6 @@ class CheckoutBookTest {
     @Test
     void shouldNotAllowCheckoutIfUserIsNotValidated() throws IOException {
         BookList bookList = mock(BookList.class);
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
         Validator validator = mock(Validator.class);
         when(validator.isValid()).thenReturn(false);
         CheckoutBook checkoutBook = new CheckoutBook(bookList, validator);
@@ -24,8 +22,6 @@ class CheckoutBookTest {
     @Test
     void shouldAllowCheckoutIfUserIsNotValidated() throws IOException {
         BookList bookList = mock(BookList.class);
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
         Validator validator = mock(Validator.class);
         when(validator.isValid()).thenReturn(true);
         CheckoutBook checkoutBook = new CheckoutBook(bookList, validator);

@@ -11,10 +11,9 @@ public class BookList {
     private UserOutput userOutput;
     private User user;
 
-    public BookList(UserInput userInput, UserOutput userOutput, User user) {
+    public BookList(UserInput userInput, UserOutput userOutput) {
         this.userInput = userInput;
         this.userOutput = userOutput;
-        this.user = user;
         this.bookList = new ArrayList<>();
         checkedOutBookList = new HashMap<>();
         bookList.add("Harry Potter");
@@ -38,7 +37,6 @@ public class BookList {
         String bookTakenByUser = checkedOutBookList.get(user);
         if (book.equals(bookTakenByUser)) {
             bookList.add(book);
-            //delete from map
             userOutput.print("Thank you for returning the book\n");
         } else {
             userOutput.print("That is not a valid book to return.\n");
