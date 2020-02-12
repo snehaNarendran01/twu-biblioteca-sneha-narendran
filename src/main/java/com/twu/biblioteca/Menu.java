@@ -48,7 +48,7 @@ public class Menu {
 
     public void displayMenu() throws IOException {
         userOutput.print("\nSelect any one of the options: \n1: Listing all books\n" +
-                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n");
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n");
     }
 
     private void displayInvalidOptionMessage() throws IOException {

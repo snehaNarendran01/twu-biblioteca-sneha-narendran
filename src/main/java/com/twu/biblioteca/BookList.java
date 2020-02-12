@@ -38,6 +38,7 @@ public class BookList {
         String bookTakenByUser = checkedOutBookList.get(user);
         if (book.equals(bookTakenByUser)) {
             bookList.add(book);
+            //delete from map
             userOutput.print("Thank you for returning the book\n");
         } else {
             userOutput.print("That is not a valid book to return.\n");
