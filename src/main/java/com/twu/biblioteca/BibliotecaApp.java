@@ -9,7 +9,8 @@ public class BibliotecaApp {
         welcomePage.getWelcomeMessage();
         UserInput userInput = new UserInput();
         UserOutput userOutput = new UserOutput();
-        BookList bookList = new BookList(userInput, userOutput);
+        User user = new User("", "", "", userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         BookViewer bookViewer = new BookViewer(userOutput);
         ApplicationQuitter applicationQuitter = new ApplicationQuitter();
         Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter);

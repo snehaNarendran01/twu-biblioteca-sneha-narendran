@@ -2,18 +2,21 @@ package com.twu.biblioteca;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BookList {
     private ArrayList<String> bookList;
-    private ArrayList<String> checkedOutBookList;
+    private HashMap<User, String> checkedOutBookList;
     private UserInput userInput;
     private UserOutput userOutput;
+    private User user;
 
-    public BookList(UserInput userInput, UserOutput userOutput) {
+    public BookList(UserInput userInput, UserOutput userOutput, User user) {
         this.userInput = userInput;
         this.userOutput = userOutput;
+        this.user = user;
         this.bookList = new ArrayList<>();
-        checkedOutBookList = new ArrayList<>();
+        checkedOutBookList = new HashMap<>();
         bookList.add("Harry Potter");
         bookList.add("Inseparable Twins");
     }
@@ -23,20 +26,20 @@ public class BookList {
             userOutput.print("Sorry, that book is not available\n");
         } else {
             bookList.remove(title);
-            checkedOutBookList.add(title);
+            checkedOutBookList.put(user, title);
             userOutput.print("Thank you! Enjoy the book\n");
         }
     }
 
     public void returnBook() throws IOException {
         String book = userInput.scanBookTitle();
-        if (checkedOutBookList.contains(book)) {
+        String bookTakenByUser = checkedOutBookList.get(user);
+        if (book.equals(bookTakenByUser)) {
             bookList.add(book);
             userOutput.print("Thank you for returning the book\n");
         } else {
             userOutput.print("That is not a valid book to return.\n");
         }
-
     }
 
 }

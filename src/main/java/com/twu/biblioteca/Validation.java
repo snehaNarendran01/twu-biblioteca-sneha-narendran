@@ -7,7 +7,7 @@ public class Validation {
     HashMap<String, String> userCredentials;
     private UserInput userInput;
 
-    public Validation(UserInput userInput) {
+    public Validation(UserInput userInput, UserOutput userOutput) {
         this.userInput = userInput;
         userCredentials = new HashMap<>();
         userCredentials.put("017-1998", "pass1234");

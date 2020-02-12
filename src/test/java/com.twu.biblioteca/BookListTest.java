@@ -10,12 +10,13 @@ import static org.mockito.Mockito.*;
 class BookListTest {
 
     private UserOutput userOutput = mock(UserOutput.class);
+    private User user = mock(User.class);
 
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         try {
             bookList.checkout("Harry Potter");
         } catch (Exception e) {
@@ -26,7 +27,7 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
 
         String expectedUnSuccessfulMessage = "Sorry, that book is not available\n";
 
@@ -38,7 +39,7 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         String expectedSuccessMessage = "Thank you! Enjoy the book\n";
 
         bookList.checkout("Harry Potter");
@@ -49,7 +50,7 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         when(userInput.scanBookTitle()).thenReturn("Harry Poter");
         String expectedUnSuccessfulMessage = "That is not a valid book to return.\n";
 
@@ -61,7 +62,7 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckout = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
@@ -76,7 +77,7 @@ class BookListTest {
     @Test
     void shouldOnlyBeAbleToReturnCheckedOutBooks() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
@@ -91,7 +92,7 @@ class BookListTest {
     @Test
     void shouldBeAbleToCheckoutAReturnedBook() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(userInput, userOutput, user);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
