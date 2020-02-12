@@ -2,22 +2,14 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 class BookListTest {
 
-    private ByteArrayOutputStream byteArrayOutputStream;
     private UserOutput userOutput = mock(UserOutput.class);
-
-    private void initializeOutputStream() {
-        byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
-    }
 
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInList() throws IOException {
@@ -34,7 +26,6 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
-        initializeOutputStream();
         BookList bookList = new BookList(userInput, userOutput);
 
         String expectedUnSuccessfulMessage = "Sorry, that book is not available\n";
@@ -46,7 +37,6 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() throws IOException {
-        initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput, userOutput);
         String expectedSuccessMessage = "Thank you! Enjoy the book\n";
@@ -58,7 +48,6 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() throws IOException {
-        initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Poter");
@@ -71,7 +60,6 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() throws IOException {
-        initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
@@ -87,7 +75,6 @@ class BookListTest {
 
     @Test
     void shouldOnlyBeAbleToReturnCheckedOutBooks() throws IOException {
-        initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
@@ -103,7 +90,6 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToCheckoutAReturnedBook() throws IOException {
-        initializeOutputStream();
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput, userOutput);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");

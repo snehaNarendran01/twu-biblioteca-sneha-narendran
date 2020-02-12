@@ -13,7 +13,6 @@ public class BibliotecaApp {
         BookViewer bookViewer = new BookViewer(userOutput);
         ApplicationQuitter applicationQuitter = new ApplicationQuitter();
         Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter);
-        menu.displayMenu();
         menu.showMenu();
     }
 }

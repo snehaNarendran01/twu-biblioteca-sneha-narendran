@@ -19,4 +19,9 @@ public class UserInput {
         return reader.readLine();
     }
 
+    public String scanMovieTitle() throws IOException {
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine();
+    }
 }
