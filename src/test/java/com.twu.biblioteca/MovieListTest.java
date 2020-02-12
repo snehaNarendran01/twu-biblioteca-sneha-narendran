@@ -16,7 +16,7 @@ class MovieListTest {
         when(userInput.scanMovieTitle()).thenReturn("Life Of Pi");
         MovieList movieList = new MovieList(userInput, userOutput);
         try {
-            movieList.checkout("Life Of Pi");
+            movieList.checkout();
         } catch (Exception e) {
             fail();
         }
@@ -24,10 +24,11 @@ class MovieListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfMovieIfItDoesNotExistInList() throws IOException {
+        when(userInput.scanMovieTitle()).thenReturn("Birds Of Prey");
         MovieList movieList = new MovieList(userInput, userOutput);
         String expectedUnSuccessfulMessage = "Sorry, that movie is not available\n";
 
-        movieList.checkout("Birds Of Prey");
+        movieList.checkout();
 
         verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
     }
@@ -35,21 +36,22 @@ class MovieListTest {
     @Test
     void shouldBeAbleToGetASuccessfulMessageIfMovieExistInList() throws IOException {
         MovieList movieList = new MovieList(userInput, userOutput);
+        when(userInput.scanMovieTitle()).thenReturn("Life Of Pi");
         String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
 
-        movieList.checkout("Life Of Pi");
+        movieList.checkout();
 
         verify(userOutput, times(1)).print(expectedSuccessfulMessage);
     }
-
     @Test
     void shouldNotBeAbleToCheckoutTheMovieTwice() throws IOException {
         MovieList movieList = new MovieList(userInput, userOutput);
+        when(userInput.scanMovieTitle()).thenReturn("Life Of Pi");
         String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
         String expectedUnSuccessfulMessage = "Sorry, that movie is not available\n";
 
-        movieList.checkout("Life Of Pi");
-        movieList.checkout("Life Of Pi");
+        movieList.checkout();
+        movieList.checkout();
 
         verify(userOutput, times(1)).print(expectedSuccessfulMessage);
         verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);

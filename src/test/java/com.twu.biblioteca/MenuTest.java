@@ -73,7 +73,7 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(bookList, times(1)).checkout(null);
+        verify(bookList, times(1)).checkout();
     }
 
     @Test
@@ -81,13 +81,13 @@ class MenuTest {
         UserInput userInput = mock(UserInput.class);
         UserOutput userOutput = mock(UserOutput.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        when(userInput.scanOption()).thenReturn(3, 4);
+        when(userInput.scanOption()).thenReturn(2, 3, 4);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
         MovieList movieList = mock(MovieList.class);
+        when(validator.isValid()).thenReturn(true);
         Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
-
         menu.showMenu();
 
         verify(bookList, times(1)).returnBook();
@@ -138,7 +138,7 @@ class MenuTest {
         menu.showMenu();
 
         verify(bookViewer, times(1)).printBookDetails();
-        verify(bookList, times(0)).checkout("Harry Potter");
+        verify(bookList, times(0)).checkout();
     }
 
     @Test
@@ -171,6 +171,6 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(movieList, times(1)).checkout(null);
+        verify(movieList, times(1)).checkout();
     }
 }

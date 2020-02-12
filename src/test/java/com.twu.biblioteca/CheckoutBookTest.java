@@ -14,11 +14,11 @@ class CheckoutBookTest {
         UserOutput userOutput = mock(UserOutput.class);
         Validator validator = mock(Validator.class);
         when(validator.isValid()).thenReturn(false);
-        CheckoutBook checkoutBook = new CheckoutBook(bookList, userInput, userOutput, validator);
+        CheckoutBook checkoutBook = new CheckoutBook(bookList, validator);
 
         checkoutBook.execute();
 
-        verify(bookList, times(0)).checkout(null);
+        verify(bookList, times(0)).checkout();
     }
 
     @Test
@@ -28,10 +28,10 @@ class CheckoutBookTest {
         UserOutput userOutput = mock(UserOutput.class);
         Validator validator = mock(Validator.class);
         when(validator.isValid()).thenReturn(true);
-        CheckoutBook checkoutBook = new CheckoutBook(bookList, userInput, userOutput, validator);
+        CheckoutBook checkoutBook = new CheckoutBook(bookList, validator);
 
         checkoutBook.execute();
 
-        verify(bookList, times(1)).checkout(null);
+        verify(bookList, times(1)).checkout();
     }
 }

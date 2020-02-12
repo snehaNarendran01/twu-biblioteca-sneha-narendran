@@ -17,7 +17,9 @@ public class MovieList {
         listOfMovies.add("Dumbo");
     }
 
-    public void checkout(String movieTitle) throws IOException {
+    public void checkout() throws IOException {
+        userOutput.print("Enter the name of a movie\n");
+        String movieTitle = userInput.scanMovieTitle();
         if (!listOfMovies.contains(movieTitle)) {
             userOutput.print("Sorry, that movie is not available\n");
         } else {

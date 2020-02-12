@@ -18,7 +18,7 @@ class BookListTest {
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         BookList bookList = new BookList(userInput, userOutput, user);
         try {
-            bookList.checkout("Harry Potter");
+            bookList.checkout();
         } catch (Exception e) {
             fail();
         }
@@ -28,10 +28,10 @@ class BookListTest {
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
         BookList bookList = new BookList(userInput, userOutput, user);
-
+        when(userInput.scanBookTitle()).thenReturn("Famous Fie");
         String expectedUnSuccessfulMessage = "Sorry, that book is not available\n";
 
-        bookList.checkout("Famous Fie");
+        bookList.checkout();
 
         verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
     }
@@ -39,10 +39,11 @@ class BookListTest {
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() throws IOException {
         UserInput userInput = mock(UserInput.class);
+        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         BookList bookList = new BookList(userInput, userOutput, user);
         String expectedSuccessMessage = "Thank you! Enjoy the book\n";
 
-        bookList.checkout("Harry Potter");
+        bookList.checkout();
 
         verify(userOutput, times(1)).print(expectedSuccessMessage);
     }
@@ -66,7 +67,7 @@ class BookListTest {
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckout = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
-        bookList.checkout("Harry Potter");
+        bookList.checkout();
 
         bookList.returnBook();
 
@@ -82,7 +83,7 @@ class BookListTest {
         String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
 
-        bookList.checkout("Harry Potter");
+        bookList.checkout();
         bookList.returnBook();
 
         verify(userOutput, times(1)).print(expectedSuccessfulMessageForCheckedOutBooks);
@@ -96,10 +97,10 @@ class BookListTest {
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
-        bookList.checkout("Harry Potter");
+        bookList.checkout();
         bookList.returnBook();
 
-        bookList.checkout("Harry Potter");
+        bookList.checkout();
 
         verify(userOutput, times(2)).print(expectedSuccessfulMessageForCheckedOutBooks);
         verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);

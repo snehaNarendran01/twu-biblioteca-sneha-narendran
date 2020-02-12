@@ -21,7 +21,9 @@ public class BookList {
         bookList.add("Inseparable Twins");
     }
 
-    public void checkout(String title) throws IOException {
+    public void checkout() throws IOException {
+        userOutput.print("Enter a book title to checkout");
+        String title = userInput.scanBookTitle();
         if (!bookList.contains(title)) {
             userOutput.print("Sorry, that book is not available\n");
         } else {

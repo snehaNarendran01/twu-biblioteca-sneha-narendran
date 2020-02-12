@@ -10,5 +10,4 @@ public class UserOutput {
         bufferedWriter.write(message);
         bufferedWriter.flush();
     }
-
 }
