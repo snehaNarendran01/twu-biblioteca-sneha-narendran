@@ -5,10 +5,12 @@ import java.io.IOException;
 public class CheckoutBook implements Command {
     private BookList bookList;
     private UserInput userInput;
+    private UserOutput userOutput;
 
-    CheckoutBook(BookList bookList, UserInput userInput) {
+    CheckoutBook(BookList bookList, UserInput userInput, UserOutput userOutput) {
         this.bookList = bookList;
         this.userInput = userInput;
+        this.userOutput = userOutput;
     }
 
     @Override
@@ -18,7 +20,7 @@ public class CheckoutBook implements Command {
 
     @Override
     public void execute() throws IOException {
-        System.out.println("Enter a book title to checkout");
+        userOutput.print("Enter a book title to checkout");
         String title = userInput.scanBookTitle();
         bookList.checkout(title);
     }

@@ -15,7 +15,8 @@ class MenuTest {
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         BookViewer bookViewer = mock(BookViewer.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
         when(userInput.scanOption()).thenReturn(1, 4);
 
         menu.showMenu();
@@ -30,7 +31,8 @@ class MenuTest {
         UserOutput userOutput = mock(UserOutput.class);
         BookViewer bookViewer = mock(BookViewer.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
         when(userInput.scanOption()).thenReturn(8, 4);
 
         menu.showMenu();
@@ -46,7 +48,8 @@ class MenuTest {
         when(userInput.scanOption()).thenReturn(8, 4);
         BookViewer bookViewer = mock(BookViewer.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
 
         menu.showMenu();
 
@@ -58,12 +61,12 @@ class MenuTest {
         UserInput userInput = mock(UserInput.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         UserOutput userOutput = mock(UserOutput.class);
-
         when(userInput.scanOption()).thenReturn(2, 4);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
 
         menu.showMenu();
 
@@ -75,12 +78,12 @@ class MenuTest {
         UserInput userInput = mock(UserInput.class);
         UserOutput userOutput = mock(UserOutput.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-
         when(userInput.scanOption()).thenReturn(3, 4);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
 
         menu.showMenu();
 
@@ -93,7 +96,8 @@ class MenuTest {
         UserOutput userOutput = mock(UserOutput.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(null, null, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(null, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
 
         menu.displayMenu();
 
@@ -110,7 +114,8 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
 
         menu.showMenu();
     }
@@ -120,12 +125,12 @@ class MenuTest {
         UserInput userInput = mock(UserInput.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         UserOutput userOutput = mock(UserOutput.class);
-
         when(userInput.scanOption()).thenReturn(1, 4, 2);
         BookViewer bookViewer = mock(BookViewer.class);
         BookList bookList = mock(BookList.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
 
         menu.showMenu();
 
@@ -140,11 +145,29 @@ class MenuTest {
         BookViewer bookViewer = mock(BookViewer.class);
         ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
         MovieViewer movieViewer = mock(MovieViewer.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList);
         when(userInput.scanOption()).thenReturn(5, 4);
 
         menu.showMenu();
 
         verify(movieViewer, times(1)).printMovieDetails();
+    }
+
+    @Test
+    void shouldBeAbleToCheckoutMovieWhenOptionSixIsSelected() throws IOException {
+        UserInput userInput = mock(UserInput.class);
+        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
+        UserOutput userOutput = mock(UserOutput.class);
+        when(userInput.scanOption()).thenReturn(6, 4);
+        BookViewer bookViewer = mock(BookViewer.class);
+        BookList bookList = mock(BookList.class);
+        MovieViewer movieViewer = mock(MovieViewer.class);
+        MovieList movieList = mock(MovieList.class);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList);
+
+        menu.showMenu();
+
+        verify(movieList, times(1)).checkout(null);
     }
 }
