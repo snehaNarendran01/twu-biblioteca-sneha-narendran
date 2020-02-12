@@ -8,15 +8,18 @@ public class Menu {
     private UserInput userInput;
     private UserOutput userOutput;
     private ApplicationQuitter applicationQuitter;
+    private MovieViewer movieViewer;
     private BookViewer bookViewer;
     private BookList bookList;
 
-    public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput, UserOutput userOutput, ApplicationQuitter applicationQuitter) {
+    public Menu(BookViewer bookViewer, BookList bookInventory, UserInput userInput,
+                UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer) {
         this.bookViewer = bookViewer;
         this.bookList = bookInventory;
         this.userInput = userInput;
         this.userOutput = userOutput;
         this.applicationQuitter = applicationQuitter;
+        this.movieViewer = movieViewer;
     }
 
     public void showMenu() throws IOException {
@@ -40,7 +43,7 @@ public class Menu {
 
     public void displayMenu() throws IOException {
         userOutput.print("\nSelect any one of the options: \n1: Listing all books\n" +
-                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n");
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n");
     }
 
     private void displayInvalidOptionMessage() throws IOException {
@@ -53,6 +56,7 @@ public class Menu {
         commandList.add(new CheckoutBook(bookList, userInput));
         commandList.add(new ReturnBook(bookList));
         commandList.add(new SystemExit(applicationQuitter));
+        commandList.add(new ListMovies(movieViewer));
         return commandList;
     }
 }

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class ValidationTest {
+class ValidatorTest {
     UserInput userInput = mock(UserInput.class);
     UserOutput userOutput = mock(UserOutput.class);
 
@@ -18,9 +18,9 @@ class ValidationTest {
         when(userInput.scanLibraryNumber()).thenReturn("123-4567");
         when(userInput.scanUserPassword()).thenReturn("pass1234");
 
-        Validation validation = new Validation(userInput, userOutput);
+        Validator validator = new Validator(userInput, userOutput);
 
-        assertFalse(validation.isValid());
+        assertFalse(validator.isValid());
     }
 
     @Test
@@ -28,8 +28,8 @@ class ValidationTest {
         when(userInput.scanLibraryNumber()).thenReturn("017-1998");
         when(userInput.scanUserPassword()).thenReturn("pass1234");
 
-        Validation validation = new Validation(userInput, userOutput);
+        Validator validator = new Validator(userInput, userOutput);
 
-        assertTrue(validation.isValid());
+        assertTrue(validator.isValid());
     }
 }
