@@ -15,7 +15,7 @@ public class BibliotecaApp {
         MovieViewer movieViewer = new MovieViewer(userOutput);
         MovieList movieList = new MovieList(userInput, userOutput);
         Validator validator = new Validator(userInput, userOutput);
-        User user = null;
+        User user = User.createUser();
         Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
         menu.showMenu();
     }
