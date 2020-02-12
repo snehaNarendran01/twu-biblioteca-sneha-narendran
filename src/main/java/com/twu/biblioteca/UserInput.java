@@ -24,4 +24,16 @@ public class UserInput {
                 new BufferedReader(new InputStreamReader(System.in));
         return reader.readLine();
     }
+
+    public String scanLibraryNumber() throws IOException {
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine();
+    }
+
+    public String scanUserPassword() throws IOException {
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine();
+    }
 }
