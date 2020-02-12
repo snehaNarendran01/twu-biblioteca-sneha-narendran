@@ -11,12 +11,13 @@ public class Menu {
     private MovieViewer movieViewer;
     private MovieList movieList;
     private Validator validator;
+    private User user;
     private BookViewer bookViewer;
     private BookList bookList;
 
     public Menu(BookViewer bookViewer, BookList bookList, UserInput userInput,
                 UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer,
-                MovieList movieList, Validator validator) {
+                MovieList movieList, Validator validator, User user) {
         this.bookViewer = bookViewer;
         this.bookList = bookList;
         this.userInput = userInput;
@@ -25,6 +26,7 @@ public class Menu {
         this.movieViewer = movieViewer;
         this.movieList = movieList;
         this.validator = validator;
+        this.user = user;
     }
 
     public void showMenu() throws IOException {
@@ -48,7 +50,7 @@ public class Menu {
 
     public void displayMenu() throws IOException {
         userOutput.print("\nSelect any one of the options: \n1: Listing all books\n" +
-                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n");
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n7: Show account details\n");
     }
 
     private void displayInvalidOptionMessage() throws IOException {
@@ -63,6 +65,7 @@ public class Menu {
         commandList.add(new SystemExit(applicationQuitter));
         commandList.add(new ListMovies(movieViewer));
         commandList.add(new CheckoutMovies(movieList));
+        commandList.add(new UserDetails(user));
         return commandList;
     }
 }

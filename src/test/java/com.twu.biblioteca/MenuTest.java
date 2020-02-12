@@ -7,17 +7,43 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 
 class MenuTest {
-    Validator validator = mock(Validator.class);
+    Validator validator;
+    UserInput userInput;
+    UserOutput userOutput;
+    BookViewer bookViewer;
+    ApplicationQuitter applicationQuitter;
+    MovieViewer movieViewer;
+    MovieList movieList;
+    BookList bookList;
+    User user;
+
+    void initialize() {
+        validator = mock(Validator.class);
+        userInput = mock(UserInput.class);
+        userOutput = mock(UserOutput.class);
+        bookViewer = mock(BookViewer.class);
+        applicationQuitter = mock(ApplicationQuitter.class);
+        movieViewer = mock(MovieViewer.class);
+        movieList = mock(MovieList.class);
+        bookList = mock(BookList.class);
+        user = mock(User.class);
+    }
+
+    @Test
+    void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
+        initialize();
+        Menu menu = new Menu(null, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
+
+        menu.displayMenu();
+
+        verify(userOutput, times(1)).print("\nSelect any one of the options: \n1: Listing all books\n" +
+                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n7: Show account details\n");
+    }
 
     @Test
     void shouldBeAbleToViewTheListOfBooksFromTheMenuIfChoosesOptionOne() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        BookViewer bookViewer = mock(BookViewer.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        initialize();
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
         when(userInput.scanOption()).thenReturn(1, 4);
 
         menu.showMenu();
@@ -27,13 +53,8 @@ class MenuTest {
 
     @Test
     void shouldNotBeAbleToViewTheListOfBooksFromTheMenuIfChosenOptionIsNotOne() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        UserOutput userOutput = mock(UserOutput.class);
-        BookViewer bookViewer = mock(BookViewer.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        initialize();
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
         when(userInput.scanOption()).thenReturn(8, 4);
 
         menu.showMenu();
@@ -43,14 +64,9 @@ class MenuTest {
 
     @Test
     void shouldShowInvalidOptionMessageIfChosenOptionIsIncorrect() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        UserOutput userOutput = mock(UserOutput.class);
+        initialize();
         when(userInput.scanOption()).thenReturn(8, 4);
-        BookViewer bookViewer = mock(BookViewer.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();
 
@@ -59,17 +75,10 @@ class MenuTest {
 
     @Test
     void shouldBeAbleToCheckoutABookIfChosenOptionTwo() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        UserOutput userOutput = mock(UserOutput.class);
+        initialize();
         when(userInput.scanOption()).thenReturn(2, 4);
-        BookViewer bookViewer = mock(BookViewer.class);
-        BookList bookList = mock(BookList.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Validator validator = mock(Validator.class);
         when(validator.isValid()).thenReturn(true);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();
 
@@ -78,62 +87,30 @@ class MenuTest {
 
     @Test
     void shouldBeAbleToReturnBookIfChosenOptionIsThree() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
+        initialize();
         when(userInput.scanOption()).thenReturn(2, 3, 4);
-        BookViewer bookViewer = mock(BookViewer.class);
-        BookList bookList = mock(BookList.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
         when(validator.isValid()).thenReturn(true);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
+
         menu.showMenu();
 
         verify(bookList, times(1)).returnBook();
     }
 
     @Test
-    void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(null, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
-
-        menu.displayMenu();
-
-        verify(userOutput, times(1)).print("\nSelect any one of the options: \n1: Listing all books\n" +
-                "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n");
-    }
-
-    @Test
     void shouldQuitTheApplicationIfOptionFourIsSelected() throws IOException {
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
+        initialize();
         when(userInput.scanOption()).thenReturn(4);
-        BookViewer bookViewer = mock(BookViewer.class);
-        BookList bookList = mock(BookList.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();
     }
 
     @Test
     void shouldNotQitTheApplicationUntilOptionFourIsSelected() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        UserOutput userOutput = mock(UserOutput.class);
+        initialize();
         when(userInput.scanOption()).thenReturn(1, 4, 2);
-        BookViewer bookViewer = mock(BookViewer.class);
-        BookList bookList = mock(BookList.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();
 
@@ -143,13 +120,8 @@ class MenuTest {
 
     @Test
     void shouldDisplayTheListOfMoviesWhenOptionFiveIsSelected() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        UserOutput userOutput = mock(UserOutput.class);
-        BookViewer bookViewer = mock(BookViewer.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        initialize();
+        Menu menu = new Menu(bookViewer, null, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
         when(userInput.scanOption()).thenReturn(5, 4);
 
         menu.showMenu();
@@ -159,18 +131,23 @@ class MenuTest {
 
     @Test
     void shouldBeAbleToCheckoutMovieWhenOptionSixIsSelected() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        ApplicationQuitter applicationQuitter = mock(ApplicationQuitter.class);
-        UserOutput userOutput = mock(UserOutput.class);
+        initialize();
         when(userInput.scanOption()).thenReturn(6, 4);
-        BookViewer bookViewer = mock(BookViewer.class);
-        BookList bookList = mock(BookList.class);
-        MovieViewer movieViewer = mock(MovieViewer.class);
-        MovieList movieList = mock(MovieList.class);
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();
 
         verify(movieList, times(1)).checkout();
+    }
+
+    @Test
+    void shouldViewUserInformationWhenOptionSevenIsSelected() throws IOException {
+        initialize();
+        when(userInput.scanOption()).thenReturn(7, 4);
+        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
+
+        menu.showMenu();
+
+        verify(user, times(1)).printInformation();
     }
 }
