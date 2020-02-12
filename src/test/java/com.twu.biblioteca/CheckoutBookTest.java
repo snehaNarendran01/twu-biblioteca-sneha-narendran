@@ -20,4 +20,18 @@ class CheckoutBookTest {
 
         verify(bookList, times(0)).checkout(null);
     }
+
+    @Test
+    void shouldAllowCheckoutIfUserIsNotValidated() throws IOException {
+        BookList bookList = mock(BookList.class);
+        UserInput userInput = mock(UserInput.class);
+        UserOutput userOutput = mock(UserOutput.class);
+        Validator validator = mock(Validator.class);
+        when(validator.isValid()).thenReturn(true);
+        CheckoutBook checkoutBook = new CheckoutBook(bookList, userInput, userOutput, validator);
+
+        checkoutBook.execute();
+
+        verify(bookList, times(1)).checkout(null);
+    }
 }
