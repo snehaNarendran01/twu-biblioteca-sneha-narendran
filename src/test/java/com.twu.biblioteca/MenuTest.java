@@ -50,6 +50,17 @@ class MenuTest {
     }
 
     @Test
+    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuBeforeIfChosenOptionIsNotOne() throws IOException {
+        initialize();
+        Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
+        when(console.scanOption()).thenReturn(8);
+
+        menu.showBeforeLoginMenu();
+
+        verify(bookViewer, times(0)).printBookDetails();
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);

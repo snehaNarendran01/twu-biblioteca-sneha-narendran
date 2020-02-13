@@ -73,6 +73,7 @@ public class Menu {
 
     public void showBeforeLoginMenu() throws IOException {
         int option = console.scanOption();
-        bookViewer.printBookDetails();
+        if (option == 1)
+            bookViewer.printBookDetails();
     }
 }
