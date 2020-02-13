@@ -13,7 +13,7 @@ public class BibliotecaApp {
         BookList bookList = new BookList(console);
         BookViewer bookViewer = new BookViewer(console);
         ApplicationQuitter applicationQuitter = new ApplicationQuitter();
-        MovieViewer movieViewer = new MovieViewer(userOutput);
+        MovieViewer movieViewer = new MovieViewer(console);
         MovieList movieList = new MovieList(userInput, userOutput);
         Validator validator = new Validator(userInput, userOutput);
         User user = User.createUser();

@@ -9,17 +9,17 @@ public class Movie {
     private final Year yearReleased;
     private final String directorName;
     private final String rating;
-    private UserOutput userOutput;
+    private Console console;
 
-    public Movie(String movieTitle, Year yearReleased, String directorName, String rating, UserOutput userOutput) {
+    public Movie(String movieTitle, Year yearReleased, String directorName, String rating, Console console) {
         this.movieTitle = movieTitle;
         this.yearReleased = yearReleased;
         this.directorName = directorName;
         this.rating = rating;
-        this.userOutput = userOutput;
+        this.console = console;
     }
 
     public void printDetails() throws IOException {
-        userOutput.print("Title: " + movieTitle + " Year of Release: " + yearReleased + " Name of Director: " + directorName + " Rating: " + rating + "\n");
+        console.print("Title: " + movieTitle + " Year of Release: " + yearReleased + " Name of Director: " + directorName + " Rating: " + rating + "\n");
     }
 }
