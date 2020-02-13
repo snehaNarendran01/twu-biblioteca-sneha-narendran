@@ -19,6 +19,6 @@ public class SystemExit implements Command {
 
     @Override
     public int getOptionBeforeLogin() {
-        return 0;
+        return 4;
     }
 }

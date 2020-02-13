@@ -87,6 +87,7 @@ public class Menu {
         commandList.add(new ListBook(bookViewer));
         commandList.add(new ListMovies(movieViewer));
         commandList.add(new Login(validator));
+        commandList.add(new SystemExit(applicationQuitter));
         return commandList;
     }
 }
