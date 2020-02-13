@@ -79,7 +79,7 @@ class MenuTest {
 
         menu.showBeforeLoginMenu();
 
-        verify(validator, times(1)).isValid();
+        verify(validator, atLeastOnce()).isValid();
     }
 
     @Test
@@ -117,6 +117,18 @@ class MenuTest {
     }
 
     @Test
+    void shouldNotBeAbleToShowExtendedMenuAfterLoginIfCredentialsAreIncorrect() throws IOException {
+        initialize();
+        when(console.scanOption()).thenReturn(3, 2, 4);
+        when(validator.isValid()).thenReturn(false);
+        Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
+
+        menu.showBeforeLoginMenu();
+
+        verify(movieList, times(0)).checkout();
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);
@@ -132,6 +144,7 @@ class MenuTest {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
         when(console.scanOption()).thenReturn(1, 4);
+        when(validator.isValid()).thenReturn(true);
 
         menu.showMenu();
 
@@ -154,6 +167,7 @@ class MenuTest {
         initialize();
         when(console.scanOption()).thenReturn(8, 4);
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
+        when(validator.isValid()).thenReturn(true);
 
         menu.showMenu();
 
@@ -198,6 +212,7 @@ class MenuTest {
         initialize();
         when(console.scanOption()).thenReturn(1, 4, 2);
         Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
+        when(validator.isValid()).thenReturn(true);
 
         menu.showMenu();
 
@@ -210,6 +225,7 @@ class MenuTest {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
         when(console.scanOption()).thenReturn(5, 4);
+        when(validator.isValid()).thenReturn(true);
 
         menu.showMenu();
 
@@ -220,6 +236,7 @@ class MenuTest {
     void shouldBeAbleToCheckoutMovieWhenOptionSixIsSelected() throws IOException {
         initialize();
         when(console.scanOption()).thenReturn(6, 4);
+        when(validator.isValid()).thenReturn(true);
         Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();

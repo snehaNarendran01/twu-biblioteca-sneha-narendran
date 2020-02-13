@@ -28,20 +28,22 @@ public class Menu {
 
     public void showMenu() throws IOException {
         int option;
-        do {
-            displayAfterLoginMenu();
-            option = console.scanOption();
-            int flag = 0;
-            ArrayList<Command> commands = getCommands();
-            for (Command command : commands) {
-                if (command.getOption() == option) {
-                    command.execute();
-                    flag = 1;
+        if (validator.isValid()) {
+            do {
+                displayAfterLoginMenu();
+                option = console.scanOption();
+                int flag = 0;
+                ArrayList<Command> commands = getCommands();
+                for (Command command : commands) {
+                    if (command.getOption() == option) {
+                        command.execute();
+                        flag = 1;
+                    }
                 }
-            }
-            if (flag == 0)
-                displayInvalidOptionMessage();
-        } while (option != 4);
+                if (flag == 0)
+                    displayInvalidOptionMessage();
+            } while (option != 4);
+        }
     }
 
 
@@ -80,9 +82,8 @@ public class Menu {
             for (Command command : commandList) {
                 if (command.getOptionBeforeLogin() == option) {
                     command.execute();
-                    if (option == 3) {
+                    if (option == 3)
                         showMenu();
-                    }
                 }
             }
         } while (option != 4);

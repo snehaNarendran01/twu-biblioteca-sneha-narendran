@@ -17,7 +17,6 @@ public class Login implements Command {
     @Override
     public void execute() throws IOException {
         validator.isValid();
-
     }
 
     @Override
