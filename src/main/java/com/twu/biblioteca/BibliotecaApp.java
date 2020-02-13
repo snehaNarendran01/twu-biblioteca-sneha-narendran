@@ -6,7 +6,7 @@ public class BibliotecaApp {
 
     public static void main(String[] args) throws IOException {
         Console console = new Console();
-        WelcomePage welcomePage = new WelcomePage();
+        WelcomePage welcomePage = new WelcomePage(console);
         welcomePage.getWelcomeMessage();
         BookList bookList = new BookList(console);
         BookViewer bookViewer = new BookViewer(console);

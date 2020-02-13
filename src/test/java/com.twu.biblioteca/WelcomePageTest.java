@@ -2,21 +2,20 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 class WelcomePageTest {
+    Console console = mock(Console.class);
+
     @Test
-    void shouldReturnTheWelcomeMessageWhenTheApplicationStarts() {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(byteArrayOutputStream));
-        WelcomePage welcomePage = new WelcomePage();
+    void shouldReturnTheWelcomeMessageWhenTheApplicationStarts() throws IOException {
+        WelcomePage welcomePage = new WelcomePage(console);
         String expected = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
 
         welcomePage.getWelcomeMessage();
 
-        assertEquals(expected, byteArrayOutputStream.toString());
+        verify(console, times(1)).print(expected);
     }
 }
