@@ -82,7 +82,7 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(bookList, times(1)).checkout();
+        verify(bookList, times(1)).checkout(user);
     }
 
     @Test
@@ -94,7 +94,7 @@ class MenuTest {
 
         menu.showMenu();
 
-        verify(bookList, times(1)).returnBook();
+        verify(bookList, times(1)).returnBook(user);
     }
 
     @Test
@@ -115,7 +115,7 @@ class MenuTest {
         menu.showMenu();
 
         verify(bookViewer, times(1)).printBookDetails();
-        verify(bookList, times(0)).checkout();
+        verify(bookList, times(0)).checkout(user);
     }
 
     @Test
@@ -141,9 +141,10 @@ class MenuTest {
     }
 
     @Test
-    void shouldViewUserInformationWhenOptionSevenIsSelected() throws IOException {
+    void shouldBeAbleToViewUserDetailsWhenOptionSevenIsSelected() throws IOException {
         initialize();
         when(userInput.scanOption()).thenReturn(7, 4);
+        when(validator.isValid()).thenReturn(true);
         Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter, movieViewer, movieList, validator, user);
 
         menu.showMenu();

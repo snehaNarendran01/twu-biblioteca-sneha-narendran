@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class BookList {
     private ArrayList<String> bookList;
@@ -20,7 +21,7 @@ public class BookList {
         bookList.add("Inseparable Twins");
     }
 
-    public void checkout() throws IOException {
+    public void checkout(User user) throws IOException {
         userOutput.print("Enter a book title to checkout");
         String title = userInput.scanBookTitle();
         if (!bookList.contains(title)) {
@@ -32,7 +33,7 @@ public class BookList {
         }
     }
 
-    public void returnBook() throws IOException {
+    public void returnBook(User user) throws IOException {
         String book = userInput.scanBookTitle();
         String bookTakenByUser = checkedOutBookList.get(user);
         if (book.equals(bookTakenByUser)) {
@@ -43,4 +44,14 @@ public class BookList {
         }
     }
 
+    public User issuedBy() throws IOException {
+        User issueByUser = null;
+        String book = userInput.scanBookTitle();
+        for (Map.Entry<User, String> entry : checkedOutBookList.entrySet()) {
+            if (entry.getValue().equals(book)) {
+                issueByUser = entry.getKey();
+            }
+        }
+        return issueByUser;
+    }
 }

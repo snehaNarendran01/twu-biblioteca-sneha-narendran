@@ -6,10 +6,12 @@ public class ReturnBook implements Command {
     UserOutput userOutput = new UserOutput();
     private BookList bookList;
     private Validator validator;
+    private User user;
 
-    ReturnBook(BookList bookList, Validator validator) {
+    ReturnBook(BookList bookList, Validator validator, User user) {
         this.bookList = bookList;
         this.validator = validator;
+        this.user = user;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class ReturnBook implements Command {
     public void execute() throws IOException {
         if (validator.isValid()) {
             userOutput.print("Enter a book title to return");
-            bookList.returnBook();
+            bookList.returnBook(user);
         }
     }
 }
