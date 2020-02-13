@@ -110,5 +110,14 @@ class BookListTest {
 
         Assertions.assertEquals(user, bookList.issuedBy());
     }
+
+    @Test
+    void shouldReturnNullWhenABookIsCheckoutByNoOne() throws IOException {
+        BookList bookList = new BookList(userInput, userOutput);
+        when(userInput.scanBookTitle()).thenReturn("");
+        bookList.checkout(user);
+
+        Assertions.assertNull(bookList.issuedBy());
+    }
 }
 
