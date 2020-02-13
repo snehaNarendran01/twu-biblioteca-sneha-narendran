@@ -72,10 +72,21 @@ public class Menu {
     }
 
     public void showBeforeLoginMenu() throws IOException {
+        displayBeforeLoginMenu();
         int option = console.scanOption();
-        if (option == 1)
-            bookViewer.printBookDetails();
-        if (option == 2)
-            movieViewer.printMovieDetails();
+        ArrayList<Command> commandList = getCommandsBeforeLogin();
+        for (Command command : commandList) {
+            if (command.getOptionBeforeLogin() == option) {
+                command.execute();
+            }
+        }
+    }
+
+    private ArrayList<Command> getCommandsBeforeLogin() {
+        ArrayList<Command> commandList = new ArrayList<>();
+        commandList.add(new ListBook(bookViewer));
+        commandList.add(new ListMovies(movieViewer));
+        commandList.add(new Login(validator));
+        return commandList;
     }
 }

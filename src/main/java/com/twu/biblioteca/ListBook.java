@@ -18,4 +18,9 @@ public class ListBook implements Command {
     public void execute() throws IOException {
         bookViewer.printBookDetails();
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 1;
+    }
 }

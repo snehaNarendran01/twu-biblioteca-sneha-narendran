@@ -20,4 +20,9 @@ public class CheckoutBook implements Command {
     public void execute() throws IOException {
         bookList.checkout(user);
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 0;
+    }
 }

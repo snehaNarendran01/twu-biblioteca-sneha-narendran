@@ -16,4 +16,9 @@ public class SystemExit implements Command {
     public void execute() {
         applicationQuitter.exitSystem();
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 0;
+    }
 }

@@ -18,4 +18,9 @@ public class ListMovies implements Command {
     public void execute() throws IOException {
         movieViewer.printMovieDetails();
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 2;
+    }
 }

@@ -21,4 +21,9 @@ public class UserDetails implements Command {
         if (validator.isValid())
             user.printInformation();
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 0;
+    }
 }

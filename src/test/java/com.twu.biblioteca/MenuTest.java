@@ -72,6 +72,17 @@ class MenuTest {
     }
 
     @Test
+    void shouldBeAbleToLoginIfOptionSelectedIsThree() throws IOException {
+        initialize();
+        Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
+        when(console.scanOption()).thenReturn(3);
+
+        menu.showBeforeLoginMenu();
+
+        verify(validator, times(1)).isValid();
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);

@@ -18,4 +18,9 @@ public class CheckoutMovies implements Command {
     public void execute() throws IOException {
         movieList.checkout();
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 0;
+    }
 }

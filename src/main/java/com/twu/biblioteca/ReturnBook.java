@@ -22,4 +22,9 @@ public class ReturnBook implements Command {
         userOutput.print("Enter a book title to return");
         bookList.returnBook(user);
     }
+
+    @Override
+    public int getOptionBeforeLogin() {
+        return 0;
+    }
 }
