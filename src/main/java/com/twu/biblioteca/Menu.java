@@ -75,5 +75,7 @@ public class Menu {
         int option = console.scanOption();
         if (option == 1)
             bookViewer.printBookDetails();
+        if (option == 2)
+            movieViewer.printMovieDetails();
     }
 }

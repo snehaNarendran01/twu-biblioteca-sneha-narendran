@@ -61,6 +61,17 @@ class MenuTest {
     }
 
     @Test
+    void shouldBeAbleToViewListOfMoviesBeforeLoginIfOptionChosenIsTwo() throws IOException {
+        initialize();
+        Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
+        when(console.scanOption()).thenReturn(2);
+
+        menu.showBeforeLoginMenu();
+
+        verify(movieViewer, times(1)).printMovieDetails();
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);
