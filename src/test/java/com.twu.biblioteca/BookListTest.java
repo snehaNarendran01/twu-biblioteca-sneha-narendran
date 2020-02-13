@@ -9,15 +9,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 class BookListTest {
-    private UserOutput userOutput = mock(UserOutput.class);
+    Console console = mock(Console.class);
     User user = mock(User.class);
-    private UserInput userInput = mock(UserInput.class);
 
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInList() throws IOException {
         UserInput userInput = mock(UserInput.class);
         when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(console);
         try {
             bookList.checkout(user);
         } catch (Exception e) {
@@ -27,70 +26,69 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookIfItDoesNotExistInList() throws IOException {
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("Famous Fie");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("Famous Fie");
         String expectedUnSuccessfulMessage = "Sorry, that book is not available\n";
 
         bookList.checkout(user);
 
-        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
+        verify(console, times(1)).print(expectedUnSuccessfulMessage);
     }
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfTheBookWasRemovedSuccessfully() throws IOException {
-        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
-        BookList bookList = new BookList(userInput, userOutput);
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
+        BookList bookList = new BookList(console);
         String expectedSuccessMessage = "Thank you! Enjoy the book\n";
 
         bookList.checkout(user);
 
-        verify(userOutput, times(1)).print(expectedSuccessMessage);
+        verify(console, times(1)).print(expectedSuccessMessage);
     }
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfBookCouldNotBeReturned() throws IOException {
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("Harry Poter");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("Harry Poter");
         String expectedUnSuccessfulMessage = "That is not a valid book to return.\n";
 
         bookList.returnBook(user);
 
-        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
+        verify(console, times(1)).print(expectedUnSuccessfulMessage);
     }
 
     @Test
     void shouldBeAbleToGetASuccessMessageIfBookIsReturned() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckout = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
         bookList.checkout(user);
 
         bookList.returnBook(user);
 
-        verify(userOutput, times(1)).print(expectedSuccessfulMessageForCheckout);
-        verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);
+        verify(console, times(1)).print(expectedSuccessfulMessageForCheckout);
+        verify(console, times(1)).print(expectedSuccessfulMessageForReturn);
     }
 
     @Test
     void shouldOnlyBeAbleToReturnCheckedOutBooks() throws IOException {
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
 
         bookList.checkout(user);
         bookList.returnBook(user);
 
-        verify(userOutput, times(1)).print(expectedSuccessfulMessageForCheckedOutBooks);
-        verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);
+        verify(console, times(1)).print(expectedSuccessfulMessageForCheckedOutBooks);
+        verify(console, times(1)).print(expectedSuccessfulMessageForReturn);
     }
 
     @Test
     void shouldBeAbleToCheckoutAReturnedBook() throws IOException {
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
         String expectedSuccessfulMessageForCheckedOutBooks = "Thank you! Enjoy the book\n";
         String expectedSuccessfulMessageForReturn = "Thank you for returning the book\n";
         bookList.checkout(user);
@@ -98,14 +96,14 @@ class BookListTest {
 
         bookList.checkout(user);
 
-        verify(userOutput, times(2)).print(expectedSuccessfulMessageForCheckedOutBooks);
-        verify(userOutput, times(1)).print(expectedSuccessfulMessageForReturn);
+        verify(console, times(2)).print(expectedSuccessfulMessageForCheckedOutBooks);
+        verify(console, times(1)).print(expectedSuccessfulMessageForReturn);
     }
 
     @Test
     void shouldReturnUserWhoCheckedOutAParticularBook() throws IOException {
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
         bookList.checkout(user);
 
         Assertions.assertEquals(user, bookList.issuedBy());
@@ -113,8 +111,8 @@ class BookListTest {
 
     @Test
     void shouldReturnNullWhenABookIsCheckoutByNoOne() throws IOException {
-        BookList bookList = new BookList(userInput, userOutput);
-        when(userInput.scanBookTitle()).thenReturn("");
+        BookList bookList = new BookList(console);
+        when(console.scanBookTitle()).thenReturn("");
         bookList.checkout(user);
 
         Assertions.assertNull(bookList.issuedBy());

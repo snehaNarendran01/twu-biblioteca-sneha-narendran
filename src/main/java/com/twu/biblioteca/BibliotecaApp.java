@@ -7,9 +7,10 @@ public class BibliotecaApp {
     public static void main(String[] args) throws IOException {
         WelcomePage welcomePage = new WelcomePage();
         welcomePage.getWelcomeMessage();
+        Console console = new Console();
         UserInput userInput = new UserInput();
         UserOutput userOutput = new UserOutput();
-        BookList bookList = new BookList(userInput, userOutput);
+        BookList bookList = new BookList(console);
         BookViewer bookViewer = new BookViewer(userOutput);
         ApplicationQuitter applicationQuitter = new ApplicationQuitter();
         MovieViewer movieViewer = new MovieViewer(userOutput);
