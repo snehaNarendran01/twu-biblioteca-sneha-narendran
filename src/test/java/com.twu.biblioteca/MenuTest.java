@@ -42,7 +42,7 @@ class MenuTest {
     void shouldBeAbleToViewTheListOfBooksFromTheMenuBeforeLoginIfChoosesOptionOne() throws IOException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
-        when(console.scanOption()).thenReturn(1);
+        when(console.scanOption()).thenReturn(1, 4);
 
         menu.showBeforeLoginMenu();
 
@@ -53,7 +53,7 @@ class MenuTest {
     void shouldNotBeAbleToViewTheListOfBooksFromTheMenuBeforeIfChosenOptionIsNotOne() throws IOException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
-        when(console.scanOption()).thenReturn(8);
+        when(console.scanOption()).thenReturn(8, 4);
 
         menu.showBeforeLoginMenu();
 
@@ -64,7 +64,7 @@ class MenuTest {
     void shouldBeAbleToViewListOfMoviesBeforeLoginIfOptionChosenIsTwo() throws IOException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
-        when(console.scanOption()).thenReturn(2);
+        when(console.scanOption()).thenReturn(2, 4);
 
         menu.showBeforeLoginMenu();
 
@@ -75,7 +75,7 @@ class MenuTest {
     void shouldBeAbleToLoginIfOptionSelectedIsThree() throws IOException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
-        when(console.scanOption()).thenReturn(3);
+        when(console.scanOption()).thenReturn(3, 4);
 
         menu.showBeforeLoginMenu();
 
