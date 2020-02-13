@@ -14,8 +14,8 @@ public class Menu {
     private BookViewer bookViewer;
     private BookList bookList;
 
-    public Menu(BookViewer bookViewer, BookList bookList, Console console, ApplicationQuitter applicationQuitter, MovieViewer movieViewer,
-                MovieList movieList, Validator validator, User user) {
+    public Menu(BookViewer bookViewer, BookList bookList, Console console, ApplicationQuitter applicationQuitter,
+                MovieViewer movieViewer, MovieList movieList, Validator validator, User user) {
         this.bookViewer = bookViewer;
         this.bookList = bookList;
         this.console = console;
@@ -29,7 +29,7 @@ public class Menu {
     public void showMenu() throws IOException {
         int option;
         do {
-            displayMenu();
+            displayAfterLoginMenu();
             option = console.scanOption();
             int flag = 0;
             ArrayList<Command> commands = getCommands();
@@ -45,7 +45,7 @@ public class Menu {
     }
 
 
-    public void displayMenu() throws IOException {
+    public void displayAfterLoginMenu() throws IOException {
         console.print("\nSelect any one of the options: \n1: Listing all books\n" +
                 "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n7: Show account details\n");
     }
@@ -57,12 +57,17 @@ public class Menu {
     private ArrayList<Command> getCommands() {
         ArrayList<Command> commandList = new ArrayList<>();
         commandList.add(new ListBook(bookViewer));
-        commandList.add(new CheckoutBook(bookList, validator, user));
-        commandList.add(new ReturnBook(bookList, validator, user));
+        commandList.add(new CheckoutBook(bookList, user));
+        commandList.add(new ReturnBook(bookList, user));
         commandList.add(new SystemExit(applicationQuitter));
         commandList.add(new ListMovies(movieViewer));
         commandList.add(new CheckoutMovies(movieList));
         commandList.add(new UserDetails(user, validator));
         return commandList;
+    }
+
+    public void displayBeforeLoginMenu() throws IOException {
+        console.print("\nSelect any one of the options: \n1: Listing all books\n" +
+                "2: Listing all movies\n3: Login\n4: Quit the application\n");
     }
 }

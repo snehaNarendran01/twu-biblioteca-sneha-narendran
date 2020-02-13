@@ -28,11 +28,22 @@ class MenuTest {
     }
 
     @Test
+    void shouldDisplayMenuBeforeLogin() throws IOException {
+        initialize();
+        Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);
+
+        menu.displayBeforeLoginMenu();
+
+        verify(console, times(1)).print("\nSelect any one of the options: \n1: Listing all books\n" +
+                "2: Listing all movies\n3: Login\n4: Quit the application\n");
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);
 
-        menu.displayMenu();
+        menu.displayAfterLoginMenu();
 
         verify(console, times(1)).print("\nSelect any one of the options: \n1: Listing all books\n" +
                 "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n7: Show account details\n");
