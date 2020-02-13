@@ -70,4 +70,9 @@ public class Menu {
         console.print("\nSelect any one of the options: \n1: Listing all books\n" +
                 "2: Listing all movies\n3: Login\n4: Quit the application\n");
     }
+
+    public void showBeforeLoginMenu() throws IOException {
+        int option = console.scanOption();
+        bookViewer.printBookDetails();
+    }
 }
