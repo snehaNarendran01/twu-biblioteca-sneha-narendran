@@ -1,11 +1,11 @@
 package com.twu.biblioteca;
 
-import java.io.IOException;
-
 public class Login implements Command {
     private Validator validator;
+    private Console console;
 
-    public Login(Validator validator) {
+    public Login(Console console, Validator validator) {
+        this.console = console;
         this.validator = validator;
     }
 
@@ -15,8 +15,7 @@ public class Login implements Command {
     }
 
     @Override
-    public void execute() throws IOException {
-        validator.isValid();
+    public void execute() {
     }
 
     @Override

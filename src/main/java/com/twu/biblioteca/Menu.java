@@ -43,9 +43,9 @@ public class Menu {
                 if (flag == 0)
                     displayInvalidOptionMessage();
             } while (option != 4);
-        }
+        } else
+            console.print("Invalid Credentials");
     }
-
 
     public void displayAfterLoginMenu() throws IOException {
         console.print("\nSelect any one of the options: \n1: Listing all books\n" +
@@ -93,7 +93,7 @@ public class Menu {
         ArrayList<Command> commandList = new ArrayList<>();
         commandList.add(new ListBook(bookViewer));
         commandList.add(new ListMovies(movieViewer));
-        commandList.add(new Login(validator));
+        commandList.add(new Login(console, validator));
         commandList.add(new SystemExit(applicationQuitter));
         return commandList;
     }
