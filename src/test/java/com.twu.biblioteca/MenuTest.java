@@ -105,6 +105,18 @@ class MenuTest {
     }
 
     @Test
+    void shouldBeAbleToCheckoutAfterLogin() throws IOException {
+        initialize();
+        when(console.scanOption()).thenReturn(3, 2, 4);
+        when(validator.isValid()).thenReturn(true);
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
+        Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
+        menu.showBeforeLoginMenu();
+
+        verify(bookList, times(1)).checkout(user);
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);

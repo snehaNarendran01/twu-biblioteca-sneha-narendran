@@ -80,6 +80,9 @@ public class Menu {
             for (Command command : commandList) {
                 if (command.getOptionBeforeLogin() == option) {
                     command.execute();
+                    if (option == 3) {
+                        showMenu();
+                    }
                 }
             }
         } while (option != 4);
