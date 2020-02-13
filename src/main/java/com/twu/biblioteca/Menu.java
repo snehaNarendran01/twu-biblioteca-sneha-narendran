@@ -73,13 +73,16 @@ public class Menu {
 
     public void showBeforeLoginMenu() throws IOException {
         displayBeforeLoginMenu();
-        int option = console.scanOption();
-        ArrayList<Command> commandList = getCommandsBeforeLogin();
-        for (Command command : commandList) {
-            if (command.getOptionBeforeLogin() == option) {
-                command.execute();
+        int option;
+        do {
+            option = console.scanOption();
+            ArrayList<Command> commandList = getCommandsBeforeLogin();
+            for (Command command : commandList) {
+                if (command.getOptionBeforeLogin() == option) {
+                    command.execute();
+                }
             }
-        }
+        } while (option != 4);
     }
 
     private ArrayList<Command> getCommandsBeforeLogin() {

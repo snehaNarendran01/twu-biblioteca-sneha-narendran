@@ -94,6 +94,17 @@ class MenuTest {
     }
 
     @Test
+    void shouldNotQuitTheApplicationUntilOptionSelectedIsFour() throws IOException {
+        initialize();
+        when(console.scanOption()).thenReturn(2, 4);
+        Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
+        menu.showBeforeLoginMenu();
+
+        verify(movieViewer, times(1)).printMovieDetails();
+        verify(applicationQuitter, times(1)).exitSystem();
+    }
+
+    @Test
     void shouldDisplayTheMenuBeforeUserInputIsTaken() throws IOException {
         initialize();
         Menu menu = new Menu(null, null, console, applicationQuitter, movieViewer, movieList, validator, user);

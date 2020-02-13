@@ -17,6 +17,6 @@ public class BibliotecaApp {
         User user = new User("", "", "", console);
         Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter,
                 movieViewer, movieList, validator, user);
-        menu.showMenu();
+        menu.showBeforeLoginMenu();
     }
 }
