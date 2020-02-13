@@ -8,13 +8,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 class MovieListTest {
-    private UserOutput userOutput = mock(UserOutput.class);
-    private UserInput userInput = mock(UserInput.class);
+    private Console console = mock(Console.class);
 
     @Test
     void shouldBeAbleToCheckoutMovieIfItExistInList() throws IOException {
-        when(userInput.scanMovieTitle()).thenReturn("Life Of Pi");
-        MovieList movieList = new MovieList(userInput, userOutput);
+        when(console.scanMovieTitle()).thenReturn("Life Of Pi");
+        MovieList movieList = new MovieList(console);
         try {
             movieList.checkout();
         } catch (Exception e) {
@@ -24,36 +23,37 @@ class MovieListTest {
 
     @Test
     void shouldBeAbleToGetAnUnsuccessfulMessageIfMovieIfItDoesNotExistInList() throws IOException {
-        when(userInput.scanMovieTitle()).thenReturn("Birds Of Prey");
-        MovieList movieList = new MovieList(userInput, userOutput);
+        when(console.scanMovieTitle()).thenReturn("Birds Of Prey");
+        MovieList movieList = new MovieList(console);
         String expectedUnSuccessfulMessage = "Sorry, that movie is not available\n";
 
         movieList.checkout();
 
-        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
+        verify(console, times(1)).print(expectedUnSuccessfulMessage);
     }
 
     @Test
     void shouldBeAbleToGetASuccessfulMessageIfMovieExistInList() throws IOException {
-        MovieList movieList = new MovieList(userInput, userOutput);
-        when(userInput.scanMovieTitle()).thenReturn("Life Of Pi");
+        MovieList movieList = new MovieList(console);
+        when(console.scanMovieTitle()).thenReturn("Life Of Pi");
         String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
 
         movieList.checkout();
 
-        verify(userOutput, times(1)).print(expectedSuccessfulMessage);
+        verify(console, times(1)).print(expectedSuccessfulMessage);
     }
+
     @Test
     void shouldNotBeAbleToCheckoutTheMovieTwice() throws IOException {
-        MovieList movieList = new MovieList(userInput, userOutput);
-        when(userInput.scanMovieTitle()).thenReturn("Life Of Pi");
+        MovieList movieList = new MovieList(console);
+        when(console.scanMovieTitle()).thenReturn("Life Of Pi");
         String expectedSuccessfulMessage = "Thank you! Enjoy the movie\n";
         String expectedUnSuccessfulMessage = "Sorry, that movie is not available\n";
 
         movieList.checkout();
         movieList.checkout();
 
-        verify(userOutput, times(1)).print(expectedSuccessfulMessage);
-        verify(userOutput, times(1)).print(expectedUnSuccessfulMessage);
+        verify(console, times(1)).print(expectedSuccessfulMessage);
+        verify(console, times(1)).print(expectedUnSuccessfulMessage);
     }
 }

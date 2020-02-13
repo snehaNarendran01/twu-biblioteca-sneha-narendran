@@ -10,25 +10,24 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ValidatorTest {
-    UserInput userInput = mock(UserInput.class);
-    UserOutput userOutput = mock(UserOutput.class);
+    Console console = mock(Console.class);
 
     @Test
     void shouldReturnFalseIfIsNotValidIfTheCredentialsAreWrong() throws IOException {
-        when(userInput.scanLibraryNumber()).thenReturn("123-4567");
-        when(userInput.scanUserPassword()).thenReturn("pass1234");
+        when(console.scanLibraryNumber()).thenReturn("123-4567");
+        when(console.scanUserPassword()).thenReturn("pass1234");
 
-        Validator validator = new Validator(userInput, userOutput);
+        Validator validator = new Validator(console);
 
         assertFalse(validator.isValid());
     }
 
     @Test
     void shouldReturnTrueIfUserCredentialsAreCorrect() throws IOException {
-        when(userInput.scanLibraryNumber()).thenReturn("017-1998");
-        when(userInput.scanUserPassword()).thenReturn("pass1234");
+        when(console.scanLibraryNumber()).thenReturn("017-1998");
+        when(console.scanUserPassword()).thenReturn("pass1234");
 
-        Validator validator = new Validator(userInput, userOutput);
+        Validator validator = new Validator(console);
 
         assertTrue(validator.isValid());
     }

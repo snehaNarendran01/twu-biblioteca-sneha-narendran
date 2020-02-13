@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class Menu {
 
-    private UserInput userInput;
-    private UserOutput userOutput;
+    private Console console;
     private ApplicationQuitter applicationQuitter;
     private MovieViewer movieViewer;
     private MovieList movieList;
@@ -15,13 +14,11 @@ public class Menu {
     private BookViewer bookViewer;
     private BookList bookList;
 
-    public Menu(BookViewer bookViewer, BookList bookList, UserInput userInput,
-                UserOutput userOutput, ApplicationQuitter applicationQuitter, MovieViewer movieViewer,
+    public Menu(BookViewer bookViewer, BookList bookList, Console console, ApplicationQuitter applicationQuitter, MovieViewer movieViewer,
                 MovieList movieList, Validator validator, User user) {
         this.bookViewer = bookViewer;
         this.bookList = bookList;
-        this.userInput = userInput;
-        this.userOutput = userOutput;
+        this.console = console;
         this.applicationQuitter = applicationQuitter;
         this.movieViewer = movieViewer;
         this.movieList = movieList;
@@ -33,7 +30,7 @@ public class Menu {
         int option;
         do {
             displayMenu();
-            option = userInput.scanOption();
+            option = console.scanOption();
             int flag = 0;
             ArrayList<Command> commands = getCommands();
             for (Command command : commands) {
@@ -49,12 +46,12 @@ public class Menu {
 
 
     public void displayMenu() throws IOException {
-        userOutput.print("\nSelect any one of the options: \n1: Listing all books\n" +
+        console.print("\nSelect any one of the options: \n1: Listing all books\n" +
                 "2: Checkout a specified book\n3: Return a book\n4: Quit the application\n5: Listing all movies\n6: Checkout a movie\n7: Show account details\n");
     }
 
     private void displayInvalidOptionMessage() throws IOException {
-        userOutput.print("Please select a valid option!");
+        console.print("Please select a valid option!");
     }
 
     private ArrayList<Command> getCommands() {

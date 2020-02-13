@@ -5,19 +5,17 @@ import java.io.IOException;
 public class BibliotecaApp {
 
     public static void main(String[] args) throws IOException {
+        Console console = new Console();
         WelcomePage welcomePage = new WelcomePage();
         welcomePage.getWelcomeMessage();
-        Console console = new Console();
-        UserInput userInput = new UserInput();
-        UserOutput userOutput = new UserOutput();
         BookList bookList = new BookList(console);
         BookViewer bookViewer = new BookViewer(console);
         ApplicationQuitter applicationQuitter = new ApplicationQuitter();
         MovieViewer movieViewer = new MovieViewer(console);
-        MovieList movieList = new MovieList(userInput, userOutput);
-        Validator validator = new Validator(userInput, userOutput);
+        MovieList movieList = new MovieList(console);
+        Validator validator = new Validator(console);
         User user = User.createUser();
-        Menu menu = new Menu(bookViewer, bookList, userInput, userOutput, applicationQuitter,
+        Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter,
                 movieViewer, movieList, validator, user);
         menu.showMenu();
     }

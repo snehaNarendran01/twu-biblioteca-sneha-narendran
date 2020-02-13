@@ -14,8 +14,7 @@ class BookListTest {
 
     @Test
     void shouldBeAbleToCheckoutBookIfItExistInList() throws IOException {
-        UserInput userInput = mock(UserInput.class);
-        when(userInput.scanBookTitle()).thenReturn("Harry Potter");
+        when(console.scanBookTitle()).thenReturn("Harry Potter");
         BookList bookList = new BookList(console);
         try {
             bookList.checkout(user);
