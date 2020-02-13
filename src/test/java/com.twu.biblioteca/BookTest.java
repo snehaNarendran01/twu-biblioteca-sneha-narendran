@@ -10,12 +10,12 @@ import static org.mockito.Mockito.*;
 class BookTest {
     @Test
     void shouldReturnTheBookDetails() throws IOException {
-        UserOutput userOutput = mock(UserOutput.class);
-        Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942), userOutput);
+        Console console = mock(Console.class);
+        Book book = new Book("Famous Five", "Enid Mary Blyton", Year.of(1942), console);
         String expected = "Title: Famous Five Author: Enid Mary Blyton Year Of Publish: 1942\n";
 
         book.printInformation();
 
-        verify(userOutput, times(1)).print(expected);
+        verify(console, times(1)).print(expected);
     }
 }

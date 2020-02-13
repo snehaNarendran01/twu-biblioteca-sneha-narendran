@@ -8,16 +8,16 @@ public class Book {
     private String title;
     private String author;
     private Year yearPublished;
-    private UserOutput userOutput;
+    private Console console;
 
-    public Book(String title, String author, Year yearPublished, UserOutput userOutput) {
+    public Book(String title, String author, Year yearPublished, Console console) {
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
-        this.userOutput = userOutput;
+        this.console = console;
     }
 
     public void printInformation() throws IOException {
-        userOutput.print("Title: " + title + " Author: " + author + " Year Of Publish: " + yearPublished + "\n");
+        console.print("Title: " + title + " Author: " + author + " Year Of Publish: " + yearPublished + "\n");
     }
 }

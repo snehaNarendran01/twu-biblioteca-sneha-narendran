@@ -11,7 +11,7 @@ public class BibliotecaApp {
         UserInput userInput = new UserInput();
         UserOutput userOutput = new UserOutput();
         BookList bookList = new BookList(console);
-        BookViewer bookViewer = new BookViewer(userOutput);
+        BookViewer bookViewer = new BookViewer(console);
         ApplicationQuitter applicationQuitter = new ApplicationQuitter();
         MovieViewer movieViewer = new MovieViewer(userOutput);
         MovieList movieList = new MovieList(userInput, userOutput);
