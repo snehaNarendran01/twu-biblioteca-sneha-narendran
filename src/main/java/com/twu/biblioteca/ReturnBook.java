@@ -24,7 +24,7 @@ public class ReturnBook implements Command {
     }
 
     @Override
-    public int getOptionBeforeLogin() {
-        return 0;
+    public int getOptionBeforeLogin() throws InvalidOptionException {
+        throw new InvalidOptionException();
     }
 }
