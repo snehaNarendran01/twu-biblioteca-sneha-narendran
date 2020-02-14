@@ -39,7 +39,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToViewTheListOfBooksFromTheMenuBeforeLoginIfChoosesOptionOne() throws IOException {
+    void shouldBeAbleToViewTheListOfBooksFromTheMenuBeforeLoginIfChoosesOptionOne() throws IOException, InvalidOptionException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
         when(console.scanOption()).thenReturn(1, 4);
@@ -50,7 +50,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuBeforeIfChosenOptionIsNotOne() throws IOException {
+    void shouldNotBeAbleToViewTheListOfBooksFromTheMenuBeforeIfChosenOptionIsNotOne() throws IOException, InvalidOptionException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
         when(console.scanOption()).thenReturn(8, 4);
@@ -61,7 +61,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToViewListOfMoviesBeforeLoginIfOptionChosenIsTwo() throws IOException {
+    void shouldBeAbleToViewListOfMoviesBeforeLoginIfOptionChosenIsTwo() throws IOException, InvalidOptionException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
         when(console.scanOption()).thenReturn(2, 4);
@@ -72,7 +72,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToLoginIfOptionSelectedIsThree() throws IOException {
+    void shouldBeAbleToLoginIfOptionSelectedIsThree() throws IOException, InvalidOptionException {
         initialize();
         Menu menu = new Menu(bookViewer, null, console, applicationQuitter, movieViewer, movieList, validator, user);
         when(console.scanOption()).thenReturn(3, 4);
@@ -83,7 +83,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldQuitApplicationIfOptionIsFour() throws IOException {
+    void shouldQuitApplicationIfOptionIsFour() throws IOException, InvalidOptionException {
         initialize();
         when(console.scanOption()).thenReturn(4);
         Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
@@ -94,7 +94,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldNotQuitTheApplicationUntilOptionSelectedIsFour() throws IOException {
+    void shouldNotQuitTheApplicationUntilOptionSelectedIsFour() throws IOException, InvalidOptionException {
         initialize();
         when(console.scanOption()).thenReturn(2, 4);
         Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter, movieViewer, movieList, validator, user);
@@ -105,7 +105,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldBeAbleToCheckoutAfterLogin() throws IOException {
+    void shouldBeAbleToCheckoutAfterLogin() throws IOException, InvalidOptionException {
         initialize();
         when(console.scanOption()).thenReturn(3, 2, 4);
         when(validator.isValid()).thenReturn(true);
@@ -117,7 +117,7 @@ class MenuTest {
     }
 
     @Test
-    void shouldNotBeAbleToShowExtendedMenuAfterLoginIfCredentialsAreIncorrect() throws IOException {
+    void shouldNotBeAbleToShowExtendedMenuAfterLoginIfCredentialsAreIncorrect() throws IOException, InvalidOptionException {
         initialize();
         when(console.scanOption()).thenReturn(3, 2, 4);
         when(validator.isValid()).thenReturn(false);

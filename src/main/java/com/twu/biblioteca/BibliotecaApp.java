@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class BibliotecaApp {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InvalidOptionException {
         Console console = new Console();
         WelcomePage welcomePage = new WelcomePage(console);
         welcomePage.getWelcomeMessage();

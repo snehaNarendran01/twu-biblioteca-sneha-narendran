@@ -1,22 +1,20 @@
 package com.twu.biblioteca;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class UserDetailsTest {
     @Test
-    void shouldNotDisplayIfUserIsNotValidated() throws IOException {
-        User user = mock(User.class);
+    void shouldThrowInvalidOptionExceptionIfTriedToViewDetailsBeforeLogin() throws IOException {
+        UserDetails userDetails = new UserDetails(mock(User.class));
         Validator validator = mock(Validator.class);
-        when(validator.isValid()).thenReturn(false);
-        when(validator.isValid()).thenReturn(false);
-        UserDetails userDetails = new UserDetails(user, validator);
+        when(validator.isValid()).thenReturn(true);
 
-        userDetails.execute();
-
-        verify(user, times(0)).printInformation();
+        Assertions.assertThrows(InvalidOptionException.class, userDetails::getOptionBeforeLogin);
     }
 }

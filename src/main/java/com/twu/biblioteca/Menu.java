@@ -73,7 +73,7 @@ public class Menu {
                 "2: Listing all movies\n3: Login\n4: Quit the application\n");
     }
 
-    public void showBeforeLoginMenu() throws IOException {
+    public void showBeforeLoginMenu() throws IOException, InvalidOptionException {
         displayBeforeLoginMenu();
         int option;
         do {

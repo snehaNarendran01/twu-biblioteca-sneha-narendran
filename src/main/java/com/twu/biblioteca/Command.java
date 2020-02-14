@@ -7,5 +7,5 @@ public interface Command {
 
     void execute() throws IOException;
 
-    int getOptionBeforeLogin();
+    int getOptionBeforeLogin() throws InvalidOptionException;
 }
