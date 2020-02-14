@@ -15,10 +15,6 @@ public class User {
         this.console = console;
     }
 
-    public User createJimUser() {
-        return new User("Jim", "jim12@gmail.com", "9391049708", console);
-    }
-
     public void printInformation() throws IOException {
         console.print("Name: " + name + "\nEmail-id: " + emailId + "\nContact Number: " + phoneNumber + "\n");
     }

@@ -17,7 +17,7 @@ class ValidatorTest {
         when(console.scanLibraryNumber()).thenReturn("123-4567");
         when(console.scanUserPassword()).thenReturn("pass1234");
 
-        Validator validator = new Validator(console);
+        Validator validator = new Validator(mock(User.class), console);
 
         assertFalse(validator.isValid());
     }
@@ -27,7 +27,7 @@ class ValidatorTest {
         when(console.scanLibraryNumber()).thenReturn("017-1998");
         when(console.scanUserPassword()).thenReturn("pass1234");
 
-        Validator validator = new Validator(console);
+        Validator validator = new Validator(mock(User.class), console);
 
         assertTrue(validator.isValid());
     }
