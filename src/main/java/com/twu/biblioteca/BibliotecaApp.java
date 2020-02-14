@@ -14,7 +14,7 @@ public class BibliotecaApp {
         MovieViewer movieViewer = new MovieViewer(console);
         MovieList movieList = new MovieList(console);
         Validator validator = new Validator(console);
-        User user = new User("", "", "", console);
+        User user = new User("Jim", "jim12@gmail.com", "9391049708", console);
         Menu menu = new Menu(bookViewer, bookList, console, applicationQuitter,
                 movieViewer, movieList, validator, user);
         menu.showBeforeLoginMenu();

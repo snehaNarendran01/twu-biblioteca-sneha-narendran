@@ -3,19 +3,19 @@ package com.twu.biblioteca;
 import java.io.IOException;
 
 public class User {
-    private static Console console;
     private final String name;
     private final String emailId;
     private final String phoneNumber;
+    private Console console;
 
     public User(String name, String emailId, String phoneNumber, Console console) {
         this.name = name;
         this.emailId = emailId;
         this.phoneNumber = phoneNumber;
-        User.console = console;
+        this.console = console;
     }
 
-    public static User createUser() {
+    public User createJimUser() {
         return new User("Jim", "jim12@gmail.com", "9391049708", console);
     }
 

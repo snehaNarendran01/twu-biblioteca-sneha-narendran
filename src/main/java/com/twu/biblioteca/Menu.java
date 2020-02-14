@@ -64,7 +64,7 @@ public class Menu {
         commandList.add(new SystemExit(applicationQuitter));
         commandList.add(new ListMovies(movieViewer));
         commandList.add(new CheckoutMovies(movieList));
-        commandList.add(new UserDetails(user, validator));
+        commandList.add(new UserDetails(user));
         return commandList;
     }
 

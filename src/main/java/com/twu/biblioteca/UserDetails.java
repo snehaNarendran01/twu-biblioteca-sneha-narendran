@@ -4,11 +4,9 @@ import java.io.IOException;
 
 public class UserDetails implements Command {
     private User user;
-    private Validator validator;
 
-    public UserDetails(User user, Validator validator) {
+    public UserDetails(User user) {
         this.user = user;
-        this.validator = validator;
     }
 
     @Override
@@ -18,7 +16,6 @@ public class UserDetails implements Command {
 
     @Override
     public void execute() throws IOException {
-        if (validator.isValid())
             user.printInformation();
     }
 
